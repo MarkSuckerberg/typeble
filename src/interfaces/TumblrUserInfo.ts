@@ -1,6 +1,6 @@
-import TumblrUserBlog from "./TumblrUserBlog";
+import { TumblrUserBlog } from "./TumblrBlog";
 
-export default interface TumblrUserInfo {
+export interface TumblrUserInfo {
 	following: number;
 	default_post_format: "html" | "markdown" | "raw";
 	name: string;

@@ -13,6 +13,5 @@
 	"proseWrap": "preserve",
 	"trailingComma": "es5",
 	"arrowParens": "avoid",
-	"useTabs": true,
-	"tabWidth": 4
+	"editorconfig": true
 }

@@ -1,6 +1,6 @@
-import TumblrUserInfo from "../interfaces/TumblrUserInfo";
-import TumblrBlog from "../interfaces/TumblrBlog";
-import accessTumblrAPI from "./AccessTumblrApi";
+import { TumblrUserInfo } from "../interfaces/TumblrUserInfo";
+import { TumblrFollowerBlog } from "../interfaces/TumblrBlog";
+import { accessTumblrAPI } from "./AccessTumblrApi";
 
 export async function getUserInfo(token: string): Promise<TumblrUserInfo> {
 	return await (
@@ -12,7 +12,8 @@ export async function getUserFollowing(
 	token: string,
 	limit: number = 20,
 	offset: number = 0
-): Promise<TumblrBlog[]> {
+): Promise<TumblrFollowerBlog[]> {
+	// Tumblr API only allows a maximum of 20 blogs per request
 	if (limit > 20) limit = 20;
 	return await (
 		await accessTumblrAPI(token, "user/following", { limit, offset })

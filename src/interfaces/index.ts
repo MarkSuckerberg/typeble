@@ -1,3 +1,3 @@
 export * from "./TumblrAPIResponse";
 export * from "./TumblrBlog";
-export * from "./TumblrUserBlog";
+export * from "./TumblrUserInfo";
