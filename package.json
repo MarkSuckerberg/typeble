@@ -1,0 +1,28 @@
+{
+	"name": "typeblr",
+	"version": "0.0.1",
+	"description": "Tumblr JS library written in Typescript",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"scripts": {
+		"prepack": "tsc",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MarkSuckerberg/typeblr.git"
+	},
+	"keywords": [
+		"tumblr",
+		"api",
+		"typescript"
+	],
+	"author": "Mark Suckerberg",
+	"license": "MIT",
+	"devDependencies": {
+		"typescript": "^4.9.5"
+	},
+	"homepage": "https://github.com/MarkSuckerberg/typeblr",
+	"bugs": {
+		"url": "https://github.com/MarkSuckerberg/typeblr/issues"
+}
