@@ -1,5 +1,5 @@
-import { TumblrUserInfo } from "../interfaces/TumblrUserInfo";
-import { TumblrFollowerBlog } from "../interfaces/TumblrBlog";
+import { TumblrUserInfo } from "../interfaces";
+import { TumblrFollowerBlog } from "../interfaces";
 import { accessTumblrAPI } from "./AccessTumblrApi";
 
 export async function getUserInfo(token: string): Promise<TumblrUserInfo> {

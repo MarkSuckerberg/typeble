@@ -1,4 +1,4 @@
-import { TumblrAPIResponse } from "../interfaces/TumblrAPIResponse";
+import { TumblrAPIResponse } from "../interfaces";
 
 /**
  * The function to access the Tumblr API. This function is used by the other functions in the project.
@@ -7,6 +7,7 @@ import { TumblrAPIResponse } from "../interfaces/TumblrAPIResponse";
  * @param query Additional query parameters to send in the request body
  * @returns JSON response from the Tumblr API
  * @example accessTumblrAPI(tumblrToken, "blog/blogname.tumblr.com/posts", {limit: "1"})
+ * @link https://www.tumblr.com/docs/en/api/v2
  */
 export async function accessTumblrAPI(
 	token: string,

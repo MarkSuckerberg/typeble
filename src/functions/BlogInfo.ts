@@ -1,4 +1,4 @@
-import { TumblrFollowerBlog } from "../interfaces";
+import { TumblrFollowerBlog, TumblrFollowingBlog } from "../interfaces";
 import { accessTumblrAPI } from "./AccessTumblrApi";
 
 /**
@@ -70,4 +70,54 @@ export async function blockBlogs(
 			})
 		).meta.status === 201
 	);
+}
+
+/**
+ * Get a list of blogs that follow the given blog
+ * @param token OAuth2 token from Tumblr
+ * @param blogIdentifier Identifier of the blog to get the followers from
+ * @param limit Maximum number of blogs to return (limit 20)
+ * @param offset Block number to start at
+ * @returns Array of TumblrFollowingBlog objects
+ * @link https://www.tumblr.com/docs/en/api/v2#followers--retrieve-a-blogs-followers
+ */
+export async function getBlogFollowers(
+	token: string,
+	blogIdentifier: string,
+	limit: number = 20,
+	offset: number = 0
+): Promise<TumblrFollowingBlog[]> {
+	// Tumblr API only allows a maximum of 20 blogs per request
+	if (limit > 20) limit = 20;
+	return await (
+		await accessTumblrAPI(token, `blog/${blogIdentifier}/followers`, {
+			limit,
+			offset,
+		})
+	).response.users;
+}
+
+/**
+ * Get a list of blogs that the given blog is following
+ * @param token OAuth2 token from Tumblr
+ * @param blogIdentifier Identifier of the blog to get the following blogs from
+ * @param limit Maximum number of blogs to return (limit 20)
+ * @param offset Block number to start at
+ * @returns Array of TumblrFollowerBlog objects
+ * @link https://www.tumblr.com/docs/en/api/v2#following--retrieve-blogs-following
+ */
+export async function getBlogFollowing(
+	token: string,
+	blogIdentifier: string,
+	limit: number = 20,
+	offset: number = 0
+): Promise<TumblrFollowerBlog[]> {
+	// Tumblr API only allows a maximum of 20 blogs per request
+	if (limit > 20) limit = 20;
+	return await (
+		await accessTumblrAPI(token, `blog/${blogIdentifier}/following`, {
+			limit,
+			offset,
+		})
+	).response.blogs;
 }
