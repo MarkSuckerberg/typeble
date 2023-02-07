@@ -20,8 +20,8 @@ export async function getBlogBlocks(
 	if (limit > 20) limit = 20;
 	return await (
 		await accessTumblrAPI(token, `blog/${blogIdentifier}/blocks`, {
-			limit,
-			offset,
+			limit: limit.toString(),
+			offset: offset.toString(),
 		})
 	).response.blocked_tumblelogs;
 }
@@ -91,8 +91,8 @@ export async function getBlogFollowers(
 	if (limit > 20) limit = 20;
 	return await (
 		await accessTumblrAPI(token, `blog/${blogIdentifier}/followers`, {
-			limit,
-			offset,
+			limit: limit.toString(),
+			offset: offset.toString(),
 		})
 	).response.users;
 }
@@ -116,8 +116,8 @@ export async function getBlogFollowing(
 	if (limit > 20) limit = 20;
 	return await (
 		await accessTumblrAPI(token, `blog/${blogIdentifier}/following`, {
-			limit,
-			offset,
+			limit: limit.toString(),
+			offset: offset.toString(),
 		})
 	).response.blogs;
 }
