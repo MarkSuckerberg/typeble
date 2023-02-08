@@ -14,7 +14,7 @@ jobs:
       - name : Get Tumblr access token
         uses: MarkSuckerberg/tumblr-auth-action@v1
         with:
-          secrets-token: ${{ secrets.GITHUB_SECRET_TOKEN }}
+          secrets-token: ${{ secrets.SECRETS_ACCESS_TOKEN }}
           tumblr-refresh-token: ${{ secrets.TUMBLR_REFRESH_TOKEN }}
           tumblr-client-id: ${{ secrets.TUMBLR_CLIENT_ID }}
           tumblr-client-secret: ${{ secrets.TUMBLR_CLIENT_SECRET }}
