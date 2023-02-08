@@ -39,12 +39,13 @@ export async function blockBlog(
 	blogIdentifier: string,
 	blockedTumblelog: string
 ): Promise<boolean> {
-	return (
-		(
-			await accessTumblrAPI(token, `blog/${blogIdentifier}/blocks`, {
-				blocked_tumblelog: blockedTumblelog,
-			})
-		).meta.status === 201
+	const blogBlocked = await accessTumblrAPI(token, `blog/${blogIdentifier}/blocks`, {
+		blocked_tumblelog: blockedTumblelog,
+	});
+	if(blogBlocked.meta.status !== 201) {
+		console.log(blogBlocked);
+	}
+	return (blogBlocked.meta.status === 201
 	);
 }
 
