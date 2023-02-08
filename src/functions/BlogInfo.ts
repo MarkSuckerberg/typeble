@@ -41,8 +41,8 @@ export async function blockBlog(
 ): Promise<boolean> {
 	const blogBlocked = await accessTumblrAPI(token, `blog/${blogIdentifier}/blocks`, {
 		blocked_tumblelog: blockedTumblelog,
-	});
-	return blogBlocked.meta.status === 200 || blogBlocked.meta.status === 201; //The API says it should return 201, but it actually returns 200
+	}, "POST");
+	return blogBlocked.meta.status === 201;
 }
 
 /**
