@@ -25,5 +25,10 @@ it("gets user following with offset", async () => {
 	const userFollowing = await getUserFollowing(token, 2);
 	// Get the second blog the user is following, using the offset, and compare it to the second blog from the first request (should be the same)
 	const userFollowingOffset = await getUserFollowing(token, 1, 1);
+	console.log(
+		JSON.stringify(userFollowingOffset, null, 2),
+		"\nversus\n",
+		JSON.stringify(userFollowing, null, 2)
+	);
 	expect(userFollowingOffset[0]).toEqual(userFollowing[1]);
 });
