@@ -10,8 +10,8 @@ export async function getUserInfo(token: string): Promise<TumblrUserInfo> {
 
 export async function getUserFollowing(
 	token: string,
-	limit: number = 20,
-	offset: number = 0
+	limit = 20,
+	offset = 0
 ): Promise<TumblrFollowerBlog[]> {
 	// Tumblr API only allows a maximum of 20 blogs per request
 	if (limit > 20) limit = 20;

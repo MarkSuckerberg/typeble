@@ -5,8 +5,11 @@
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
 	"scripts": {
-		"prepack": "tsc",
-		"test": "jest"
+		"prepack": "tsc --build --clean",
+		"test": "jest",
+		"lint": "eslint . --ext .ts --ignore-path .gitignore",
+		"style": "prettier --check .",
+		"docs": "typedoc --out docs src"
 	},
 	"repository": {
 		"type": "git",
@@ -15,21 +18,27 @@
 	"keywords": [
 		"tumblr",
 		"api",
-		"typescript",
-		"javascript"
+		"typescript"
 	],
 	"author": "Mark Suckerberg",
 	"license": "MIT",
 	"devDependencies": {
 		"@types/jest": "^29.4.0",
+		"@typescript-eslint/eslint-plugin": "^5.51.0",
+		"@typescript-eslint/parser": "^5.51.0",
 		"dotenv": "^16.0.3",
+		"eslint": "^8.33.0",
 		"jest": "^29.4.1",
 		"ts-jest": "^29.0.5",
+		"ts-node": "^10.9.1",
 		"typedoc": "^0.23.24",
 		"typescript": "^4.9.5"
 	},
 	"homepage": "https://github.com/MarkSuckerberg/typeblr",
 	"bugs": {
 		"url": "https://github.com/MarkSuckerberg/typeblr/issues"
-	}
+	},
+	"files": [
+		"lib", "README.md", "LICENSE", "package.json"
+	]
 }

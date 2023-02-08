@@ -52,7 +52,7 @@ export interface TumblrNeueAudioBlock extends TumblrNeueContentBlock {
 	poster?: TumblrMediaObject;
 	embed_html?: string;
 	embed_url?: string;
-	metadata?: any;
+	metadata?: unknown;
 }
 
 export interface TumblrMediaObject {

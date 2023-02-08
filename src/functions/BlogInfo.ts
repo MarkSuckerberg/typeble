@@ -13,8 +13,8 @@ import { accessTumblrAPI } from "./AccessTumblrApi";
 export async function getBlogBlocks(
 	token: string,
 	blogIdentifier: string,
-	limit: number = 20,
-	offset: number = 0
+	limit = 20,
+	offset = 0
 ): Promise<TumblrFollowerBlog[]> {
 	// Tumblr API only allows a maximum of 20 blogs per request
 	if (limit > 20) limit = 20;
@@ -93,12 +93,13 @@ export async function blockBlogs(
 	token: string,
 	blogIdentifier: string,
 	blockedTumblelogs: string[],
-	force: boolean = false
+	force = false
 ): Promise<boolean> {
 	return (
 		(
 			await accessTumblrAPI(token, `blog/${blogIdentifier}/blocks/bulk`, {
 				blocked_tumblelogs: blockedTumblelogs.join(","),
+				force: force.toString(),
 			})
 		).meta.status === 201
 	);
@@ -116,8 +117,8 @@ export async function blockBlogs(
 export async function getBlogFollowers(
 	token: string,
 	blogIdentifier: string,
-	limit: number = 20,
-	offset: number = 0
+	limit = 20,
+	offset = 0
 ): Promise<TumblrFollowingBlog[]> {
 	// Tumblr API only allows a maximum of 20 blogs per request
 	if (limit > 20) limit = 20;
@@ -141,8 +142,8 @@ export async function getBlogFollowers(
 export async function getBlogFollowing(
 	token: string,
 	blogIdentifier: string,
-	limit: number = 20,
-	offset: number = 0
+	limit = 20,
+	offset = 0
 ): Promise<TumblrFollowerBlog[]> {
 	// Tumblr API only allows a maximum of 20 blogs per request
 	if (limit > 20) limit = 20;
