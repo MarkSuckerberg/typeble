@@ -1,4 +1,11 @@
-import { getBlogBlocks, blockBlog, unblockBlog, TumblrFollowerBlog } from "../src/index";
+import {
+	getBlogBlocks,
+	blockBlog,
+	unblockBlog,
+	TumblrFollowerBlog,
+	getBlogFollowers,
+	getBlogFollowing,
+} from "../src/index";
 
 const token = process.env.TUMBLR_TOKEN;
 
@@ -28,4 +35,14 @@ it("actually unblocks a blog", async () => {
 	expect(
 		blogBlocks.find((blog: TumblrFollowerBlog) => blog.name === "marksuckerbird")
 	).toBeUndefined();
+});
+
+it("gets blog followers", async () => {
+	const blogFollowers = await getBlogFollowers(token, "typeblr-bot");
+	expect(blogFollowers).toBeDefined();
+});
+
+it("gets blog following", async () => {
+	const blogFollowing = await getBlogFollowing(token, "typeblr-bot");
+	expect(blogFollowing).toBeDefined();
 });

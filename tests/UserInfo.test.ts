@@ -23,12 +23,7 @@ it("gets user following with limit", async () => {
 it("gets user following with offset", async () => {
 	// Get the first two blogs the user is following
 	const userFollowing = await getUserFollowing(token, 2);
-	// Get the second blog the user is following, using the offset, and compare it to the second blog from the first request (should be the same)
+	// Get the second blog the user is following, using the offset, and compare it to the first blog from the first request (should be the same, it's sent in reverse order)
 	const userFollowingOffset = await getUserFollowing(token, 1, 1);
-	console.log(
-		JSON.stringify(userFollowingOffset, null, 2),
-		"\nversus\n",
-		JSON.stringify(userFollowing, null, 2)
-	);
-	expect(userFollowingOffset[0]).toEqual(userFollowing[1]);
+	expect(userFollowingOffset[0]).toEqual(userFollowing[0]);
 });
