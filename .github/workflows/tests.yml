@@ -38,7 +38,7 @@ jobs:
         node-version: 18.x
         cache: 'npm'
     - run: npm ci
-    - run: npm lint
+    - run: npm run lint
     - run: npm test -- --coverage
     - name: Upload coverage to Codecov
       if: always()
