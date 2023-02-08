@@ -49,6 +49,32 @@ export async function blockBlog(
 }
 
 /**
+ *
+ * @param token OAuth2 token from Tumblr
+ * @param blogIdentifier Identifier of the blog to unblock the blog from
+ * @param blockedTumblelog Identifier of the blog to unblock
+ * @returns True if the blog was unblocked successfully
+ */
+export async function unblockBlog(
+	token: string,
+	blogIdentifier: string,
+	blockedTumblelog: string
+): Promise<boolean> {
+	return (
+		(
+			await accessTumblrAPI(
+				token,
+				`blog/${blogIdentifier}/blocks`,
+				{
+					blocked_tumblelog: blockedTumblelog,
+				},
+				"DELETE"
+			)
+		).meta.status === 200
+	);
+}
+
+/**
  * Block multiple blogs at once
  * @param token OAuth2 token from Tumblr
  * @param blogIdentifier Identifier of the blog to block the blogs from

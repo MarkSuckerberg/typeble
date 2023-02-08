@@ -14,12 +14,13 @@ export async function accessTumblrAPI(
 	token: string,
 	endpoint: string,
 	pathParams?: Record<string, string>,
-	bodyParams?: Record<string, string>
+	method: "GET" | "POST" | "DELETE" | "PUT" = "GET",
+	bodyParams?: Record<string, any>
 ): Promise<TumblrAPIResponse> {
 	const request = await fetch(
 		`https://api.tumblr.com/v2/${endpoint}?${new URLSearchParams(pathParams).toString()}`,
 		{
-			method: bodyParams ? "POST" : "GET",
+			method: method,
 			headers: {
 				"Content-Type": "application/json",
 				"Accept": "application/json",
@@ -32,7 +33,7 @@ export async function accessTumblrAPI(
 
 	const response: TumblrAPIResponse = await request.json();
 
-	if (response.meta.status !== 200) {
+	if (!request.ok) {
 		throw new Error(`${response.meta.status}: ${response.meta.msg}`);
 	}
 
