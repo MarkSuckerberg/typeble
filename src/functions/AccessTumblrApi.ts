@@ -17,6 +17,10 @@ export async function accessTumblrAPI(
 	method: "GET" | "POST" | "DELETE" | "PUT" = "GET",
 	bodyParams?: Record<string, any>
 ): Promise<TumblrAPIResponse> {
+	const url =
+		method === "GET"
+			? `https://api.tumblr.com/v2/${endpoint}?${new URLSearchParams(pathParams)}}`
+			: `https://api.tumblr.com/v2/${endpoint}`;
 	const request = await fetch(`https://api.tumblr.com/v2/${endpoint}`, {
 		method: method,
 		headers: {
@@ -25,7 +29,7 @@ export async function accessTumblrAPI(
 			"User-Agent": "Typeblr/1.0.0",
 			"Authorization": `Bearer ${token}`,
 		},
-		body: JSON.stringify(pathParams),
+		body: method !== "GET" ? JSON.stringify(pathParams) : null,
 	});
 
 	const response: TumblrAPIResponse = await request.json();
