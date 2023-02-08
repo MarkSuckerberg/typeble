@@ -19,6 +19,7 @@ jobs:
           tumblr-refresh-token: ${{ secrets.TUMBLR_REFRESH_TOKEN }}
           tumblr-client-id: ${{ secrets.TUMBLR_CLIENT_ID }}
           tumblr-client-secret: ${{ secrets.TUMBLR_CLIENT_SECRET }}
+          token-name: TUMBLR_REFRESH_TOKEN
     outputs:
       tumblr-token: ${{ steps.auth.outputs.tumblr-token }}
 
