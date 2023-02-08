@@ -17,26 +17,21 @@ export async function accessTumblrAPI(
 	method: "GET" | "POST" | "DELETE" | "PUT" = "GET",
 	bodyParams?: Record<string, any>
 ): Promise<TumblrAPIResponse> {
-	const request = await fetch(
-		`https://api.tumblr.com/v2/${endpoint}?${new URLSearchParams(pathParams).toString()}`,
-		{
-			method: method,
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json",
-				"User-Agent": "Typeblr/1.0.0",
-				"Authorization": `Bearer ${token}`,
-			},
-			body: JSON.stringify(bodyParams),
-		}
-	);
+	const request = await fetch(`https://api.tumblr.com/v2/${endpoint}`, {
+		method: method,
+		headers: {
+			"Content-Type": "application/json",
+			"Accept": "application/json",
+			"User-Agent": "Typeblr/1.0.0",
+			"Authorization": `Bearer ${token}`,
+		},
+		body: JSON.stringify(pathParams),
+	});
 
 	const response: TumblrAPIResponse = await request.json();
 
 	if (!request.ok) {
-		throw new Error(
-			`${response.meta.status}: ${response.meta.msg} - ${JSON.stringify(response)}}}`
-		);
+		throw new Error(`${response.meta.status}: ${response.meta.msg} - ${response.response}}}`);
 	}
 
 	return response;
