@@ -11,16 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name : Get Tumblr access token
+      - name: Get Tumblr access token
+        id: auth
         uses: MarkSuckerberg/tumblr-auth-action@v1
         with:
           secrets-token: ${{ secrets.SECRETS_ACCESS_TOKEN }}
           tumblr-refresh-token: ${{ secrets.TUMBLR_REFRESH_TOKEN }}
           tumblr-client-id: ${{ secrets.TUMBLR_CLIENT_ID }}
           tumblr-client-secret: ${{ secrets.TUMBLR_CLIENT_SECRET }}
+    outputs:
+      tumblr-token: ${{ steps.auth.outputs.tumblr-token }}
 
   build:
     runs-on: ubuntu-latest
+    needs: auth
 
     env:
       TUMBLR_TOKEN: ${{ jobs.auth.outputs.tumblr-token }}
