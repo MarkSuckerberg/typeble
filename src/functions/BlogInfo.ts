@@ -39,10 +39,18 @@ export async function blockBlog(
 	blogIdentifier: string,
 	blockedTumblelog: string
 ): Promise<boolean> {
-	const blogBlocked = await accessTumblrAPI(token, `blog/${blogIdentifier}/blocks`, {
-		blocked_tumblelog: blockedTumblelog,
-	}, "POST");
-	return blogBlocked.meta.status === 201;
+	return (
+		(
+			await accessTumblrAPI(
+				token,
+				`blog/${blogIdentifier}/blocks`,
+				{
+					blocked_tumblelog: blockedTumblelog,
+				},
+				"POST"
+			)
+		).meta.status === 201
+	);
 }
 
 /**
@@ -51,6 +59,7 @@ export async function blockBlog(
  * @param blogIdentifier Identifier of the blog to unblock the blog from
  * @param blockedTumblelog Identifier of the blog to unblock
  * @returns True if the blog was unblocked successfully
+ * @link https://www.tumblr.com/docs/en/api/v2#blocks--remove-a-block
  */
 export async function unblockBlog(
 	token: string,

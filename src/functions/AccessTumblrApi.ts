@@ -6,7 +6,7 @@ import { TumblrAPIResponse } from "../interfaces";
  * @param endpoint String of the endpoint to access
  * @param params Additional query parameters to send to the API, will be sent as a JSON body if the method is not GET
  * @returns JSON response from the Tumblr API
- * @example accessTumblrAPI(tumblrToken, "blog/blogname.tumblr.com/posts", {limit: "1"})
+ * @example accessTumblrAPI(tumblrToken, "blog/blogname.tumblr.com/posts", {limit: "1"}, "GET")
  * @link https://www.tumblr.com/docs/en/api/v2
  */
 export async function accessTumblrAPI(
