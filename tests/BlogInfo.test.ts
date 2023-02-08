@@ -11,6 +11,7 @@ it("blocks a blog", async () => {
 
 it("gets blog blocks", async () => {
 	const blogBlocks = await getBlogBlocks(token, "typeblr-bot");
+	console.log(JSON.stringify(blogBlocks));
 	expect(blogBlocks).toBeDefined();
 	expect(
 		blogBlocks.find((blog: TumblrFollowerBlog) => blog.name === "marksuckerbird")
@@ -25,7 +26,6 @@ it("unblocks a blog", async () => {
 it("actually unblocks a blog", async () => {
 	const blogBlocks = await getBlogBlocks(token, "typeblr-bot");
 	expect(blogBlocks).toBeDefined();
-	console.log(JSON.stringify(blogBlocks));
 	expect(
 		blogBlocks.find((blog: TumblrFollowerBlog) => blog.name === "marksuckerbird")
 	).toBeUndefined();
