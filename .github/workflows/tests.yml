@@ -7,8 +7,11 @@ on:
     branches: [ "master" ]
 
 jobs:
-  auth:
+  build:
     runs-on: ubuntu-latest
+
+    env:
+      TUMBLR_TOKEN: ${{ steps.auth.outputs.tumblr-token }}
 
     steps:
       - name: Get Tumblr access token
@@ -19,24 +22,13 @@ jobs:
           tumblr-refresh-token: ${{ secrets.TUMBLR_REFRESH_TOKEN }}
           tumblr-client-id: ${{ secrets.TUMBLR_CLIENT_ID }}
           tumblr-client-secret: ${{ secrets.TUMBLR_CLIENT_SECRET }}
-    outputs:
-      tumblr-token: ${{ steps.auth.outputs.tumblr-token }}
-
-  build:
-    runs-on: ubuntu-latest
-    needs: auth
-
-    env:
-      TUMBLR_TOKEN: ${{ jobs.auth.outputs.tumblr-token }}
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18.x
-        cache: 'npm'
-    - run: npm ci
-    - run: npm test -- --coverage
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test -- --coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
