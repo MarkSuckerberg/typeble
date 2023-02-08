@@ -34,7 +34,9 @@ export async function accessTumblrAPI(
 	const response: TumblrAPIResponse = await request.json();
 
 	if (!request.ok) {
-		throw new Error(`${response.meta.status}: ${response.meta.msg}`);
+		throw new Error(
+			`${response.meta.status}: ${response.meta.msg} - ${JSON.stringify(response)}}}`
+		);
 	}
 
 	return response;
