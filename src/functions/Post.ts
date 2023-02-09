@@ -23,7 +23,7 @@ export async function CreatePost(
 	await accessTumblrAPI(
 		token,
 		`blog/${blogIdentifier}/post`,
-		//TODO: This is a hacky way to do this. Find a better way.
+		//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
 		JSON.parse(JSON.stringify(postDetails))
 	);
 }
@@ -37,7 +37,7 @@ export async function EditPost(
 	await accessTumblrAPI(
 		token,
 		`blog/${blogIdentifier}/post/edit`,
-		//TODO: This is a hacky way to do this. Find a better way.
+		//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
 		JSON.parse(
 			JSON.stringify({
 				...postDetails,

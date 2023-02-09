@@ -12,7 +12,7 @@ import { TumblrAPIResponse } from "../interfaces";
 export async function accessTumblrAPI(
 	token: string,
 	endpoint: string,
-	params?: Record<string, any>,
+	params?: Record<string, string>,
 	method: "GET" | "POST" | "DELETE" | "PUT" = "GET"
 ): Promise<TumblrAPIResponse> {
 	const url =
