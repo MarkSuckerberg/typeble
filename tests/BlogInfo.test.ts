@@ -13,8 +13,10 @@ const token = process.env.TUMBLR_TOKEN;
 if (!token) throw new Error("No token provided");
 
 it("gets blog info", async () => {
-
-	const blogInfo = await getBlogInfo(token, "typeblr-bot", ["title", "description"]) as { title: string, description: string };
+	const blogInfo = (await getBlogInfo(token, "typeblr-bot", ["title", "description"])) as {
+		title: string;
+		description: string;
+	};
 	expect(blogInfo.title).toBeDefined();
 	expect(blogInfo.description).toBeDefined();
 });

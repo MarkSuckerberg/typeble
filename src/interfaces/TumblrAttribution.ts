@@ -1,4 +1,4 @@
-import {TumblrBlog} from "./TumblrBlog";
+import { TumblrBlog } from "./TumblrBlog";
 import { TumblrMediaObject } from "./TumblrNeuePost";
 
 export interface TumblrAttributionObject {
@@ -6,9 +6,9 @@ export interface TumblrAttributionObject {
 }
 
 export interface TumblrAttributionPostObject extends TumblrAttributionObject {
-	type: "post"
+	type: "post";
 	url: string;
-	post: any; //TODO: Post object
+	post: unknown; //TODO: Post object
 	blog: TumblrBlog;
 }
 

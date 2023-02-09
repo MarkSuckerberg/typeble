@@ -39,7 +39,7 @@ export async function getBlogInfo(
 		await accessTumblrAPI(
 			token,
 			`blog/${blogIdentifier}/info`,
-			responseFields ? { "fields": responseFields.join(",") } : undefined
+			responseFields ? { fields: responseFields.join(",") } : undefined
 		)
 	).response.blog;
 }

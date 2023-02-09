@@ -16,10 +16,9 @@ export async function getUserFollowing(
 	// Tumblr API only allows a maximum of 20 blogs per request
 	if (limit > 20) limit = 20;
 	return await (
-		await accessTumblrAPI(
-			token,
-			"user/following",
-			{ limit: limit.toString(), offset: offset.toString() }
-		)
+		await accessTumblrAPI(token, "user/following", {
+			limit: limit.toString(),
+			offset: offset.toString(),
+		})
 	).response.blogs;
 }
