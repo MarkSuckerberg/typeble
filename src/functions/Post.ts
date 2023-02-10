@@ -13,7 +13,7 @@ export async function CreatePost(
 	blogIdentifier: string,
 	postDetails: NewPostDetails
 ): Promise<string | undefined> {
-	const response = (
+	return (
 		await accessTumblrAPI(
 			token,
 			`blog/${blogIdentifier}/posts`,
@@ -21,9 +21,7 @@ export async function CreatePost(
 			JSON.parse(JSON.stringify(postDetails)),
 			"POST"
 		)
-	).response;
-
-	return response.id;
+	).response.id;
 }
 
 /**
@@ -38,14 +36,16 @@ export async function EditPost(
 	blogIdentifier: string,
 	postId: string,
 	postDetails: NewPostDetails
-) {
-	await accessTumblrAPI(
-		token,
-		`blog/${blogIdentifier}/posts/${postId}}`,
-		//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
-		JSON.parse(JSON.stringify(postDetails)),
-		"PUT"
-	);
+): Promise<string | undefined> {
+	return (
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/posts/${postId}`,
+			//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
+			JSON.parse(JSON.stringify(postDetails)),
+			"PUT"
+		)
+	).response.id;
 }
 
 /**
