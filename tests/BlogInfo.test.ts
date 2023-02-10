@@ -1,11 +1,11 @@
 import {
-	getBlogBlocks,
 	blockBlog,
-	unblockBlog,
-	TumblrFollowerBlog,
+	getBlogBlocks,
 	getBlogFollowers,
 	getBlogFollowing,
 	getBlogInfo,
+	TumblrFollowerBlog,
+	unblockBlog,
 } from "../src/index";
 
 const token = process.env.TUMBLR_TOKEN;

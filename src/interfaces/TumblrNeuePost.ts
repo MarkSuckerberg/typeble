@@ -1,7 +1,7 @@
 import { TumblrAttributionObject } from "./TumblrAttribution";
+import { TumblrBlog } from "./TumblrBlog";
 import { TumblrGifMediaObject, TumblrMediaObject } from "./TumblrMediaObject";
 import { TumblrNeueLayoutBlock } from "./TumblrNeueLayout";
-import { TumblrBlog } from "./TumblrBlog";
 
 export type TumblrFetchedPost = TumblrFetchedPostBase | TumblrQueuedPost;
 
