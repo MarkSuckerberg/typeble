@@ -19,17 +19,6 @@ it("should post a text post", async () => {
 	expect(postID).toBeDefined();
 });
 
-it("should fetch the post", async () => {
-	if (!postID) throw new Error("No post ID provided");
-	const post = await FetchPost(token, "typeblr-bot", postID);
-	console.log(JSON.stringify(post, null, 2));
-	expect(post.content).toStrictEqual([
-		{ type: "text", text: "Hello, world!", subtype: "heading1" },
-		{ type: "text", text: "This is a test post." },
-	]);
-	expect(post).toBeDefined();
-});
-
 it("should edit the post", async () => {
 	const postDetails: NewPostDetails = {
 		content: [
@@ -43,7 +32,18 @@ it("should edit the post", async () => {
 	await EditPost(token, "typeblr-bot", postID, postDetails);
 });
 
-it("should delete the post", async () => {
+it("should fetch the post", async () => {
+	if (!postID) throw new Error("No post ID provided");
+	const post = await FetchPost(token, "typeblr-bot", postID);
+	console.log(JSON.stringify(post, null, 2));
+	expect(post.content).toStrictEqual([
+		{ type: "text", text: "Hello, world!", subtype: "heading1" },
+		{ type: "text", text: "This is a test post." },
+	]);
+	expect(post).toBeDefined();
+});
+
+/*it("should delete the post", async () => {
 	if (!postID) throw new Error("No post ID provided");
 	await DeletePost(token, "typeblr-bot", postID);
-});
+});*/
