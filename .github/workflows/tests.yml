@@ -10,9 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env:
-      TUMBLR_TOKEN: ${{ needs.auth.outputs.tumblr-token }}
-
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js
@@ -22,7 +19,7 @@ jobs:
         cache: 'npm'
     - name: Get Tumblr access token
       id: auth
-      uses: MarkSuckerberg/tumblr-auth-action@v1.0.0
+      uses: MarkSuckerberg/tumblr-auth-action@v1.0.1
       with:
         secrets-token: ${{ secrets.SECRETS_ACCESS_TOKEN }}
         tumblr-refresh-token: ${{ secrets.TUMBLR_REFRESH_TOKEN }}
