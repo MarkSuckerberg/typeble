@@ -12,11 +12,7 @@ it("should post a text post", async () => {
 			{ type: "text", text: "Hello, world!", subtype: "heading1" },
 			{ type: "text", text: "This is a test post." },
 		],
-		layout: [],
-		state: "published",
-		tags: ["test", "typelr"],
-		isPrivate: true,
-		interactabilityReblog: "noone",
+		tags: "test,typelr",
 	};
 
 	postID = await CreatePost(token, "typelr-bot", postDetails);
@@ -30,11 +26,7 @@ it("should edit the post", async () => {
 			{ type: "text", text: "This is a test post." },
 			{ type: "text", text: "This is an edit.", subtype: "quirky" },
 		],
-		layout: [],
-		state: "published",
-		tags: ["test", "typelr"],
-		isPrivate: true,
-		interactabilityReblog: "noone",
+		tags: "test,typelr,edit",
 	};
 
 	if (!postID) throw new Error("No post ID provided");

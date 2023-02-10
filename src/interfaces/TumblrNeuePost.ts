@@ -25,11 +25,11 @@ export interface TumblrNeuePost {
 
 export type NewPostDetails = {
 	content: TumblrNeueContentBlock[];
-	layout: TumblrNeuelayoutBlock[];
-	state: "published" | "queue" | "draft" | "private";
+	layout?: TumblrNeuelayoutBlock[];
+	state?: "published" | "queue" | "draft" | "private";
 	publishOn?: Date;
 	date?: Date;
-	tags?: string[];
+	tags?: string;
 	sourceUrl?: string;
 	send_to_twitter?: boolean;
 	isPrivate?: boolean;
