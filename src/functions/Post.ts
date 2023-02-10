@@ -13,6 +13,8 @@ export async function CreatePost(
 	blogIdentifier: string,
 	postDetails: NewPostDetails
 ): Promise<string | undefined> {
+	console.log(JSON.parse(JSON.stringify(postDetails)));
+
 	const response = (
 		await accessTumblrAPI(
 			token,
