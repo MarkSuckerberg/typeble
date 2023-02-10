@@ -4,6 +4,10 @@ export interface TumblrAPIResponse {
 		msg: string;
 	};
 	response: any;
+	errors?: {
+		code: number;
+		title: string;
+	};
 }
 
 export interface TumblrLink {
