@@ -34,7 +34,7 @@ export async function getBlogInfo(
 	token: string,
 	blogIdentifier: string,
 	responseFields?: BlogInfoResponseFields //TODO: Find a way to make this dynamically return the correct type
-): Promise<unknown> {
+): Promise<{ [field: string]: string; thing: string }> {
 	return (
 		await accessTumblrAPI(
 			token,
