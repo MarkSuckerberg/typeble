@@ -35,15 +35,14 @@ it("should edit the post", async () => {
 it("should fetch the post", async () => {
 	if (!postID) throw new Error("No post ID provided");
 	const post = await FetchPost(token, "typeblr-bot", postID);
-	console.log(JSON.stringify(post, null, 2));
 	expect(post.content).toStrictEqual([
 		{ type: "text", text: "Hello, world!", subtype: "heading1" },
-		{ type: "text", text: "This is a test post." },
+		{ type: "text", text: "This is a test post. It has been edited!" },
 	]);
 	expect(post).toBeDefined();
 });
 
-/*it("should delete the post", async () => {
+it("should delete the post", async () => {
 	if (!postID) throw new Error("No post ID provided");
 	await DeletePost(token, "typeblr-bot", postID);
-});*/
+});
