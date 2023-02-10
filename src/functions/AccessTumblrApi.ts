@@ -5,6 +5,7 @@ import { TumblrAPIResponse } from "../interfaces";
  * @param token OAuth2 token from Tumblr
  * @param endpoint String of the endpoint to access
  * @param params Additional query parameters to send to the API, will be sent as a JSON body if the method is not GET
+ * @param method HTTP method to use
  * @returns JSON response from the Tumblr API
  * @example accessTumblrAPI(tumblrToken, "blog/blogname.tumblr.com/posts", {limit: "1"}, "GET")
  * @link https://www.tumblr.com/docs/en/api/v2

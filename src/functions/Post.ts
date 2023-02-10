@@ -18,7 +18,8 @@ export async function CreatePost(
 			token,
 			`blog/${blogIdentifier}/post`,
 			//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
-			JSON.parse(JSON.stringify(postDetails))
+			JSON.parse(JSON.stringify(postDetails)),
+			"POST"
 		)
 	).response;
 
@@ -47,7 +48,8 @@ export async function EditPost(
 				...postDetails,
 				id: postId,
 			})
-		)
+		),
+		"PUT"
 	);
 }
 
