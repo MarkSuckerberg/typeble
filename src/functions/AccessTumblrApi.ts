@@ -19,8 +19,8 @@ export async function accessTumblrAPI(
 ): Promise<TumblrAPIResponse> {
 	const url =
 		method === "GET"
-			? `${apiURL}/${endpoint}?${new URLSearchParams(params)}`
-			: `${apiURL}/${endpoint}`;
+			? `${apiURL}${endpoint}?${new URLSearchParams(params)}`
+			: `${apiURL}${endpoint}`;
 	const request = await fetch(url, {
 		method: method,
 		headers: {

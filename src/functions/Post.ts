@@ -74,7 +74,7 @@ export async function FetchPost(
 				post_format: postFormat,
 			},
 			"GET",
-			"https://www.tumblr.com/api/v2" // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask tumblr why.
+			"https://www.tumblr.com/api/v2/" // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask tumblr why.
 		)
 	).response;
 }
