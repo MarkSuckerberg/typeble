@@ -12,10 +12,10 @@ it("should post a text post", async () => {
 			{ type: "text", text: "Hello, world!", subtype: "heading1" },
 			{ type: "text", text: "This is a test post." },
 		],
-		tags: "test,typelr",
+		tags: "test,typeblr",
 	};
 
-	postID = await CreatePost(token, "typelr-bot", postDetails);
+	postID = await CreatePost(token, "typeblr-bot", postDetails);
 	expect(postID).toBeDefined();
 });
 
@@ -26,9 +26,9 @@ it("should edit the post", async () => {
 			{ type: "text", text: "This is a test post." },
 			{ type: "text", text: "This is an edit.", subtype: "quirky" },
 		],
-		tags: "test,typelr,edit",
+		tags: "test,typeblr,edit",
 	};
 
 	if (!postID) throw new Error("No post ID provided");
-	await EditPost(token, "typelr-bot", postID, postDetails);
+	await EditPost(token, "typeblr-bot", postID, postDetails);
 });
