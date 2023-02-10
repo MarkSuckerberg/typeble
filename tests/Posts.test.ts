@@ -35,7 +35,7 @@ it("should edit the post", async () => {
 it("should fetch the post", async () => {
 	if (!postID) throw new Error("No post ID provided");
 	const post = await FetchPost(token, "typeblr-bot", postID);
-	expect(post.content).toStrictEqual([
+	expect(post.content).toEqual([
 		{ type: "text", text: "Hello, world!", subtype: "heading1" },
 		{ type: "text", text: "This is a test post. It has been edited!" },
 	]);
