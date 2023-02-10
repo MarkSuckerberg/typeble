@@ -16,7 +16,7 @@ export async function CreatePost(
 	const response = (
 		await accessTumblrAPI(
 			token,
-			`blog/${blogIdentifier}/post`,
+			`blog/${blogIdentifier}/posts`,
 			//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
 			JSON.parse(JSON.stringify(postDetails)),
 			"POST"
@@ -41,7 +41,7 @@ export async function EditPost(
 ) {
 	await accessTumblrAPI(
 		token,
-		`blog/${blogIdentifier}/post/edit`,
+		`blog/${blogIdentifier}/posts`,
 		//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
 		JSON.parse(
 			JSON.stringify({
