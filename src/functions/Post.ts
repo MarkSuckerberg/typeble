@@ -55,8 +55,10 @@ export async function EditPost(
  * @param postId ID of the post to delete
  */
 export async function DeletePost(token: string, blogIdentifier: string, postId: string) {
-	(await accessTumblrAPI(token, `blog/${blogIdentifier}/post/delete`, { id: postId }, "POST"))
-		.response == 200;
+	return (
+		(await accessTumblrAPI(token, `blog/${blogIdentifier}/post/delete`, { id: postId }, "POST"))
+			.meta.status == 200
+	);
 }
 
 export async function FetchPost(

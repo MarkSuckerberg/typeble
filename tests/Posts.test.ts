@@ -44,5 +44,6 @@ it("should fetch the post", async () => {
 
 it("should delete the post", async () => {
 	if (!postID) throw new Error("No post ID provided");
-	await DeletePost(token, "typeblr-bot", postID);
+	expect(await DeletePost(token, "typeblr-bot", postID)).toBe(true);
+	await expect(FetchPost(token, "typeblr-bot", postID)).rejects.toThrow();
 });
