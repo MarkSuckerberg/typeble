@@ -1,28 +1,30 @@
 import { TumblrBlog } from "./TumblrBlog";
-import { TumblrMediaObject } from "./TumblrNeuePost";
+import { TumblrMediaObject } from "./TumblrMediaObject";
 
-export interface TumblrAttributionObject {
-	type: "post" | "link" | "blog" | "app";
-}
+export type TumblrAttributionObject =
+	| TumblrAttributionPostObject
+	| TumblrAttributionLinkObject
+	| TumblrAttributionBlogObject
+	| TumblrAttributionAppObject;
 
-export interface TumblrAttributionPostObject extends TumblrAttributionObject {
+interface TumblrAttributionPostObject {
 	type: "post";
 	url: string;
 	post: unknown; //TODO: Post object
 	blog: TumblrBlog;
 }
 
-export interface TumblrAttributionLinkObject extends TumblrAttributionObject {
+interface TumblrAttributionLinkObject {
 	type: "link";
 	url: string;
 }
 
-export interface TumblrAttributionBlogObject extends TumblrAttributionObject {
+export interface TumblrAttributionBlogObject {
 	type: "blog";
 	blog: TumblrBlog;
 }
 
-export interface TumblrAttributionAppObject extends TumblrAttributionObject {
+interface TumblrAttributionAppObject {
 	type: "app";
 	url: string;
 	app_name?: string;

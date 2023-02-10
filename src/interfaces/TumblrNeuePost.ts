@@ -1,31 +1,42 @@
+import { TumblrAttributionObject } from "./TumblrAttribution";
+import { TumblrGifMediaObject, TumblrMediaObject } from "./TumblrMediaObject";
+import { TumblrNeueLayoutBlock } from "./TumblrNeueLayout";
 import { TumblrBlog } from "./TumblrBlog";
 
-export interface TumblrFetchedPost {
+export type TumblrFetchedPost = TumblrFetchedPostBase | TumblrQueuedPost;
+
+interface TumblrFetchedPostBase {
 	object_type: "post";
 	type: "text" | "photo" | "quote" | "link" | "chat" | "audio" | "video" | "blocks";
-	id: number;
+	id: string;
 	tumblelog_uuid: string;
 	parent_post_id: string;
 	parent_tumblelog_uuid: string;
 	reblog_key: string;
+	//TODO: Document trail
 	trail: unknown[];
 	content: TumblrNeueContentBlock[];
-	layout: TumblrNeuelayoutBlock[];
+	layout: TumblrNeueLayoutBlock[];
 	queued_state?: "queued" | "scheduled";
 	scheduled_publish_time?: number;
 	publish_on: string;
 	interactability_reblog: "everyone" | "noone";
 }
 
+interface TumblrQueuedPost extends TumblrFetchedPostBase {
+	queued_state: "queued" | "scheduled";
+	scheduled_publish_time: number;
+}
+
 export interface TumblrNeuePost {
-	id: number;
+	id: string;
 	blog: TumblrBlog;
 	content: TumblrNeueContentBlock[];
 }
 
 export type NewPostDetails = {
 	content: TumblrNeueContentBlock[];
-	layout?: TumblrNeuelayoutBlock[];
+	layout?: TumblrNeueLayoutBlock[];
 	state?: "published" | "queue" | "draft" | "private";
 	publishOn?: Date;
 	date?: Date;
@@ -37,22 +48,18 @@ export type NewPostDetails = {
 	interactabilityReblog?: "everyone" | "noone";
 };
 
-//TODO: Split by type
-export interface TumblrNeueContentBlock {
-	type: "text" | "image" | "video" | "audio" | "quote" | "link" | "chat" | "answer";
-	text?: string;
-	width?: number;
-	height?: number;
-	url?: string;
-	title?: string;
-	description?: string;
-	author?: string;
-	site_name?: string;
-	display_url?: string;
-	poster?: TumblrMediaObject;
-	original_dimensions_missing?: boolean;
-	cropped?: boolean;
-	has_original_dimensions?: boolean;
+export type TumblrNeueContentBlock =
+	| TumblrNeueTextBlock
+	| TumblrNeueImageBlock
+	| TumblrNeueLinkBlock
+	| TumblrNeueAudioBlock
+	| TumblrNeueVideoBlock
+	| TumblrNeuePaywallBlock;
+
+// Text Block
+interface TumblrNeueTextBlock {
+	type: "text";
+	text: string;
 	subtype?:
 		| "heading1"
 		| "heading2"
@@ -62,20 +69,45 @@ export interface TumblrNeueContentBlock {
 		| "chat"
 		| "ordered-list-item"
 		| "unordered-list-item";
-	indent_level?: number;
 	formatting?: {
 		start: number;
 		end: number;
 		type: "bold" | "italic" | "strikethrough" | "small" | "link" | "code" | "color";
 		hex?: string;
 		url?: string;
-	};
+	}[];
+	indent_level?: number;
 }
 
-export interface TumblrNeueAudioBlock extends TumblrNeueContentBlock {
-	type: "audio";
+// Image Block
+interface TumblrNeueImageBlock {
+	type: "image";
+	media: (TumblrMediaObject | TumblrGifMediaObject)[];
+	alt_text?: string;
+	caption?: string;
+	feedback_token?: string;
+	poster?: TumblrMediaObject;
+	attribution?: TumblrAttributionObject;
+	colors?: Record<`c${number}`, string>;
+}
+
+// Link Block
+interface TumblrNeueLinkBlock {
+	type: "link";
 	url: string;
-	media: TumblrMediaObject;
+	title?: string;
+	description?: string;
+	author?: string;
+	site_name?: string;
+	display_url?: string;
+	poster?: TumblrMediaObject;
+}
+
+// Audio Block
+export type TumblrNeueAudioBlock = TumblrNeueAudioBlockURL | TumblrNeueAudioBlockMedia;
+
+interface TumblrNeueAudioBlockBase {
+	type: "audio";
 	provider?: string;
 	title?: string;
 	artist?: string;
@@ -84,18 +116,51 @@ export interface TumblrNeueAudioBlock extends TumblrNeueContentBlock {
 	embed_html?: string;
 	embed_url?: string;
 	metadata?: unknown;
+	attribution?: TumblrAttributionObject;
 }
 
-export interface TumblrMediaObject {
+interface TumblrNeueAudioBlockURL extends TumblrNeueAudioBlockBase {
 	url: string;
-	type?: string;
-	width?: number;
-	height?: number;
-	original_dimensions_missing?: boolean;
-	cropped?: boolean;
-	has_original_dimensions?: boolean;
 }
 
-export interface TumblrNeuelayoutBlock {
-	type: "rows" | "ask";
+interface TumblrNeueAudioBlockMedia extends TumblrNeueAudioBlockBase {
+	media: TumblrMediaObject;
+}
+
+//Video Block
+export type TumblrNeueVideoBlock = TumblrNeueVideoBlockURL | TumblrNeueVideoBlockMedia;
+
+interface TumblrNeueVideoBlockBase {
+	type: "video";
+	provider?: string;
+	embed_html?: string;
+	embed_url?: string;
+	embed_iframe?: TumblrEmbedIframeObject;
+	poster?: TumblrMediaObject;
+	metadata?: unknown;
+	attribution?: TumblrAttributionObject;
+	can_autoplay_on_cellular?: boolean;
+}
+
+// Video Block
+interface TumblrNeueVideoBlockURL extends TumblrNeueVideoBlockBase {
+	url: string;
+}
+
+interface TumblrNeueVideoBlockMedia extends TumblrNeueVideoBlockBase {
+	media: TumblrMediaObject;
+}
+
+// Paywall Block
+interface TumblrNeuePaywallBlock {
+	type: "paywall";
+	subtype: "cta" | "divider" | "disabled";
+	url: string;
+	is_visible?: boolean;
+}
+
+export interface TumblrEmbedIframeObject {
+	url: string;
+	width: number;
+	height: number;
 }
