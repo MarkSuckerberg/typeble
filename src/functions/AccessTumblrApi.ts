@@ -36,7 +36,9 @@ export async function accessTumblrAPI(
 	//TODO: Don't make this throw an error, instead return the response and let the caller handle it
 	if (!request.ok) {
 		throw new Error(
-			`${response.meta.status}: ${response.meta.msg} - ${JSON.stringify(response.errors)}`
+			`${response.meta.status}: ${response.meta.msg} - ${JSON.stringify(
+				response.errors
+			)} (Query URL: ${url})`
 		);
 	}
 
