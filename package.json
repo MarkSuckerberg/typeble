@@ -5,7 +5,7 @@
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
 	"scripts": {
-		"prepack": "tsc --build --clean",
+		"prepack": "tsc",
 		"test": "jest",
 		"lint": "eslint . --ext .ts --ignore-path .gitignore",
 		"docs": "typedoc --out docs src"
