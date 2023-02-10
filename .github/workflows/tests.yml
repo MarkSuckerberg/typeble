@@ -2,13 +2,21 @@ name: Unit Tests
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev" ]
     paths:
       - "**.ts"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/workflows/documentation.yml"
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "dev" ]
     paths:
       - "**.ts"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/workflows/documentation.yml"
 
 jobs:
   build:
