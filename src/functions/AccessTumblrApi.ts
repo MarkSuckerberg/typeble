@@ -14,12 +14,13 @@ export async function accessTumblrAPI(
 	token: string,
 	endpoint: string,
 	params?: Record<string, string>,
-	method: "GET" | "POST" | "DELETE" | "PUT" = "GET"
+	method: "GET" | "POST" | "DELETE" | "PUT" = "GET",
+	apiURL = "https://api.tumblr.com/v2/"
 ): Promise<TumblrAPIResponse> {
 	const url =
 		method === "GET"
-			? `https://api.tumblr.com/v2/${endpoint}?${new URLSearchParams(params)}}`
-			: `https://api.tumblr.com/v2/${endpoint}`;
+			? `${apiURL}/${endpoint}?${new URLSearchParams(params)}`
+			: `${apiURL}/${endpoint}`;
 	const request = await fetch(url, {
 		method: method,
 		headers: {
