@@ -7,22 +7,6 @@ on:
     branches: [ "master" ]
 
 jobs:
-  auth:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Get Tumblr access token
-        id: auth
-        uses: MarkSuckerberg/tumblr-auth-action@v1.0.0
-        with:
-          secrets-token: ${{ secrets.SECRETS_ACCESS_TOKEN }}
-          tumblr-refresh-token: ${{ secrets.TUMBLR_REFRESH_TOKEN }}
-          tumblr-client-id: ${{ secrets.TUMBLR_CLIENT_ID }}
-          tumblr-client-secret: ${{ secrets.TUMBLR_CLIENT_SECRET }}
-          token-name: TUMBLR_REFRESH_TOKEN
-    outputs:
-      tumblr-token: ${{ steps.auth.outputs.tumblr-token }}
-
   build:
     runs-on: ubuntu-latest
     needs: auth
@@ -37,8 +21,19 @@ jobs:
       with:
         node-version: 18.x
         cache: 'npm'
+    - name: Get Tumblr access token
+      id: auth
+      uses: MarkSuckerberg/tumblr-auth-action@v1.0.0
+      with:
+        secrets-token: ${{ secrets.SECRETS_ACCESS_TOKEN }}
+        tumblr-refresh-token: ${{ secrets.TUMBLR_REFRESH_TOKEN }}
+        tumblr-client-id: ${{ secrets.TUMBLR_CLIENT_ID }}
+        tumblr-client-secret: ${{ secrets.TUMBLR_CLIENT_SECRET }}
+        token-name: TUMBLR_REFRESH_TOKEN
     - run: npm ci
     - run: npm run lint
     - run: npm test -- --coverage
+      env:
+        TUMBLR_TOKEN: ${{ steps.auth.outputs.tumblr-token }}
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
