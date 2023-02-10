@@ -3,6 +3,7 @@ export interface TumblrAPIResponse {
 		status: number;
 		msg: string;
 	};
+	//TODO: Unknown type
 	response: any;
 	errors?: {
 		code: number;

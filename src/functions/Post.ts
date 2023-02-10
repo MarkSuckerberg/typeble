@@ -65,6 +65,7 @@ export async function FetchPost(
 	postId: string,
 	postFormat: "npf" | "legacy" = "npf"
 ): Promise<TumblrFetchedPost> {
+	console.log(`blog/${blogIdentifier}/posts/${postId}`);
 	return (
 		await accessTumblrAPI(token, `blog/${blogIdentifier}/posts/${postId}`, {
 			post_format: postFormat,
