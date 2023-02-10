@@ -24,7 +24,7 @@ it("should edit the post", async () => {
 		content: [
 			{ type: "text", text: "Hello, world!", subtype: "heading1" },
 			{ type: "text", text: "This is a test post." },
-			{ type: "text", text: "This is an edit.", subtype: "quirky" },
+			{ type: "text", text: "This is an edit.", subtype: "heading2" },
 		],
 		tags: "test,typeblr,edit",
 	};
