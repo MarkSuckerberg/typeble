@@ -7,7 +7,7 @@ export interface TumblrAPIResponse {
 	errors?: {
 		code: number;
 		title: string;
-	};
+	}[];
 }
 
 export interface TumblrLink {

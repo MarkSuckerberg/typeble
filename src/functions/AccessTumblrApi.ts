@@ -35,7 +35,7 @@ export async function accessTumblrAPI(
 
 	if (!request.ok) {
 		throw new Error(
-			`${response.meta.status}: ${response.meta.msg} - ${response.errors?.title}: ${response.errors?.code}`
+			`${response.meta.status}: ${response.meta.msg} - ${JSON.stringify(response.errors)}`
 		);
 	}
 
