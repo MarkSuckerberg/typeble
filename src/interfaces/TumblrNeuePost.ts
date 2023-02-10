@@ -1,10 +1,41 @@
 import { TumblrBlog } from "./TumblrBlog";
 
+export interface TumblrFetchedPost {
+	object_type: "post";
+	type: "text" | "photo" | "quote" | "link" | "chat" | "audio" | "video" | "blocks";
+	id: number;
+	tumblelog_uuid: string;
+	parent_post_id: string;
+	parent_tumblelog_uuid: string;
+	reblog_key: string;
+	trail: unknown[];
+	content: TumblrNeueContentBlock[];
+	layout: TumblrNeuelayoutBlock[];
+	queued_state?: "queued" | "scheduled";
+	scheduled_publish_time?: number;
+	publish_on: string;
+	interactability_reblog: "everyone" | "noone";
+}
+
 export interface TumblrNeuePost {
 	id: number;
 	blog: TumblrBlog;
 	content: TumblrNeueContentBlock[];
 }
+
+export type NewPostDetails = {
+	content: TumblrNeueContentBlock[];
+	layout: TumblrNeuelayoutBlock[];
+	state: "published" | "queue" | "draft" | "private";
+	publishOn?: Date;
+	date?: Date;
+	tags?: string[];
+	sourceUrl?: string;
+	send_to_twitter?: boolean;
+	isPrivate?: boolean;
+	slug?: string;
+	interactabilityReblog?: "everyone" | "noone";
+};
 
 //TODO: Split by type
 export interface TumblrNeueContentBlock {
