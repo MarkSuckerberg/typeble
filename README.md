@@ -29,16 +29,25 @@ First and foremost, once again, make sure to honour the [Tumblr Application Deve
 
 Code that is not documented, is poorly documented, or is "hacky" in some way, especially parts close to the API, will likely not be added to the codebase. Code that isn't at least somewhat covered by unit tests is heavily discouraged.
 
-### Testing
+### Testing (Local)
 
-Local testing is WIP!
+Create a .env file with the following contents (You can also just set them as environment variables, but afaik that's less secure):
+
+```dotenv
+CONSUMER_ID=[your Tumblr OAuth App ID here]
+CONSUMER_SECRET=[your Tumblr OAuth App secret here]
+```
+
+Then run `npm test`. A browser window will open up a Tumblr authentication page, asking you to approve the scopes. **REMEMBER THAT THE TESTS WILL BE RUN USING WHATEVER ACCOUNT YOU ARE LOGGED INTO!** Create a bot account if you need to.
+
+### Testing (Github)
 
 Truth be told, CI (tests) will likely only run on master as there is a chance of destructive actions being taken using the bot used for testing. If you want to run CI on your own fork, be sure to set the following github secrets:
 
 - `SECRETS_ACCESS_TOKEN`: A [github PAT](https://github.com/settings/personal-access-tokens/new) (can be fine-grained) with write access to your fork's secrets (used to update the refresh token)
 - `TUMBLR_CLIENT_ID`: The client ID from your Tumblr OAuth App (Can just be a normal environment variable, but oh well)
 - `TUMBLR_CLIENT_SECRET`: The client secret from your Tumblr OAuth App
-- `TUMBLR_REFRESH_TOKEN`: A refresh token from a successful login to a Tumblr OAuth App with the `offline_access` scope, you can use [my tumblr authentication library](https://github.com/MarkSuckerberg/tumblr-auth) from the command line with the scope parameter set to include `offline_access` and the json option set to get the full response (which includes the refresh token)
+- `TUMBLR_REFRESH_TOKEN`: A refresh token from a successful login to a Tumblr OAuth App with the `offline_access` scope, you can use [my tumblr authentication library](https://github.com/MarkSuckerberg/tumblr-auth) from the command line with the scope parameter set to include `offline_access` and the json option set to get the full response (which includes the refresh token). **REMEMBER THAT THE RUN USING WHATEVER ACCOUNT YOU ARE LOGGED INTO!** You *really* want to use a bot account for this, since if you accidentally merge malicious code, it could run on your main account.
 
 ## Roadmap
 

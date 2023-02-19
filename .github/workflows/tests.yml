@@ -40,7 +40,7 @@ jobs:
         token-name: TUMBLR_REFRESH_TOKEN
     - run: npm ci
     - run: npm run lint
-    - run: npm test -- --coverage
+    - run: npm test:ci -- --coverage
       env:
         TUMBLR_TOKEN: ${{ steps.auth.outputs.tumblr-token }}
     - name: Upload coverage to Codecov
