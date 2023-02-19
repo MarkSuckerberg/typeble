@@ -29,7 +29,8 @@ it("should edit the post", async () => {
 	};
 
 	if (!postID) throw new Error("No post ID provided");
-	await EditPost(token, "typeble-bot", postID, postDetails);
+	const returnedID = await EditPost(token, "typeble-bot", postID, postDetails);
+	expect(returnedID).toBe(postID);
 });
 
 it("should fetch the post", async () => {
