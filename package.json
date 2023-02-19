@@ -1,7 +1,7 @@
 {
 	"name": "typeble",
 	"version": "0.1.0",
-	"description": "Tumblr JS library written in Typescript",
+	"description": "Unofficial Tumblr API JS library written in Typescript",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
 	"scripts": {
@@ -11,16 +11,17 @@
 		"lint": "eslint . --ext .ts --ignore-path .gitignore",
 		"docs": "typedoc --out docs src"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/MarkSuckerberg/typeble.git"
-	},
+	"repository": "github:MarkSuckerberg/typeble",
 	"keywords": [
 		"tumblr",
 		"api",
 		"typescript"
 	],
-	"author": "Mark Suckerberg",
+	"author": "Mark Suckerberg <mark@suckerberg.gay> (https://suckerberg.gay)",
+	"funding": {
+		"type": "ko-fi",
+		"url": "https://ko-fi.com/marksuckerberg"
+	},
 	"license": "MIT",
 	"devDependencies": {
 		"@types/jest": "^29.4.0",
