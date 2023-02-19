@@ -1,5 +1,5 @@
 {
-	"name": "typeblr",
+	"name": "typeble",
 	"version": "0.1.0",
 	"description": "Tumblr JS library written in Typescript",
 	"main": "lib/index.js",
@@ -12,7 +12,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/MarkSuckerberg/typeblr.git"
+		"url": "git+https://github.com/MarkSuckerberg/typeble.git"
 	},
 	"keywords": [
 		"tumblr",
@@ -38,9 +38,9 @@
 		"typedoc-plugin-missing-exports": "^1.0.0",
 		"typescript": "^4.9.5"
 	},
-	"homepage": "https://github.com/MarkSuckerberg/typeblr",
+	"homepage": "https://github.com/MarkSuckerberg/typeble",
 	"bugs": {
-		"url": "https://github.com/MarkSuckerberg/typeblr/issues"
+		"url": "https://github.com/MarkSuckerberg/typeble/issues"
 	},
 	"files": [
 		"lib",

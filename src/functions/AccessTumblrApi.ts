@@ -26,7 +26,7 @@ export async function accessTumblrAPI(
 		headers: {
 			"Content-Type": "application/json",
 			"Accept": "application/json",
-			"User-Agent": "Typeblr/1.0.0",
+			"User-Agent": "Typeble/1.0.0",
 			"Authorization": `Bearer ${token}`,
 		},
 		body: method !== "GET" ? JSON.stringify(params) : null,

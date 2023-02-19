@@ -12,10 +12,10 @@ it("should post a text post", async () => {
 			{ type: "text", text: "Hello, world!", subtype: "heading1" },
 			{ type: "text", text: "This is a test post." },
 		],
-		tags: "test,typeblr",
+		tags: "test,typeble",
 	};
 
-	postID = await CreatePost(token, "typeblr-bot", postDetails);
+	postID = await CreatePost(token, "typeble-bot", postDetails);
 	expect(postID).toBeDefined();
 });
 
@@ -25,16 +25,16 @@ it("should edit the post", async () => {
 			{ type: "text", text: "Hello, world!", subtype: "heading1" },
 			{ type: "text", text: "This is a test post. It has been edited!" },
 		],
-		tags: "test,typeblr,edit",
+		tags: "test,typeble,edit",
 	};
 
 	if (!postID) throw new Error("No post ID provided");
-	await EditPost(token, "typeblr-bot", postID, postDetails);
+	await EditPost(token, "typeble-bot", postID, postDetails);
 });
 
 it("should fetch the post", async () => {
 	if (!postID) throw new Error("No post ID provided");
-	const post = await FetchPost(token, "typeblr-bot", postID);
+	const post = await FetchPost(token, "typeble-bot", postID);
 	expect(post.content).toEqual([
 		{ type: "text", text: "Hello, world!", subtype: "heading1" },
 		{ type: "text", text: "This is a test post. It has been edited!" },
@@ -44,6 +44,6 @@ it("should fetch the post", async () => {
 
 it("should delete the post", async () => {
 	if (!postID) throw new Error("No post ID provided");
-	expect(await DeletePost(token, "typeblr-bot", postID)).toBe(true);
-	await expect(FetchPost(token, "typeblr-bot", postID)).rejects.toThrow();
+	expect(await DeletePost(token, "typeble-bot", postID)).toBe(true);
+	await expect(FetchPost(token, "typeble-bot", postID)).rejects.toThrow();
 });
