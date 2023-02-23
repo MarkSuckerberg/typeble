@@ -1,4 +1,11 @@
-import { CreatePost, DeletePost, EditPost, FetchPost, NewPostDetails } from "../src";
+import {
+	CreatePost,
+	DeletePost,
+	EditPost,
+	FetchPost,
+	NewPostDetails,
+	TumblrBlocksPost,
+} from "../src";
 
 const token = process.env.TUMBLR_TOKEN;
 
@@ -35,11 +42,12 @@ it("should edit the post", async () => {
 
 it("should fetch the post", async () => {
 	if (!postID) throw new Error("No post ID provided");
-	const post = await FetchPost(token, "typeble-bot", postID);
+	const post = (await FetchPost(token, "typeble-bot", postID)) as TumblrBlocksPost;
 	expect(post.content).toEqual([
 		{ type: "text", text: "Hello, world!", subtype: "heading1" },
 		{ type: "text", text: "This is a test post. It has been edited!" },
 	]);
+	expect(post.tags).toEqual(["test", "typeble", "edit"]);
 	expect(post).toBeDefined();
 });
 

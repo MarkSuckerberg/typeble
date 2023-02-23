@@ -1,4 +1,4 @@
-import { NewPostDetails, TumblrFetchedPost } from "../interfaces/TumblrNeuePost";
+import { NewPostDetails, TumblrPost } from "../interfaces";
 import { accessTumblrAPI } from "./AccessTumblrApi";
 
 /**
@@ -66,7 +66,7 @@ export async function FetchPost(
 	blogIdentifier: string,
 	postId: string,
 	postFormat: "npf" | "legacy" = "npf"
-): Promise<TumblrFetchedPost> {
+): Promise<TumblrPost> {
 	return (
 		await accessTumblrAPI(
 			token,

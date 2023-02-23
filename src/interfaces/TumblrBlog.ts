@@ -2,6 +2,7 @@ export interface TumblrBlog {
 	name: string;
 	url: string;
 	title: string;
+	uuid: string;
 }
 
 export interface TumblrFollowerBlog extends TumblrBlog {

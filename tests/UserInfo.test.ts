@@ -1,4 +1,4 @@
-import { getUserFollowing, getUserInfo } from "../src/index";
+import { getUserFollowing, getUserInfo } from "../src";
 
 const token = process.env.TUMBLR_TOKEN;
 

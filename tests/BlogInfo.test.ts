@@ -9,7 +9,7 @@ import {
 	TumblrFollowerBlog,
 	unblockBlog,
 	unfollowBlog,
-} from "../src/index";
+} from "../src";
 
 const token = process.env.TUMBLR_TOKEN;
 
