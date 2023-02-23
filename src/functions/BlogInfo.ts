@@ -95,6 +95,25 @@ export async function getBlogFollowing(
 }
 
 /**
+ * Get the avatar of a blog
+ * @param token OAuth2 token from Tumblr
+ * @param blogIdentifier Identifier of the blog to get the avatar from
+ * @param size Size of the avatar to return
+ * @returns URL of the avatar
+ * @link https://www.tumblr.com/docs/en/api/v2#avatar--retrieve-a-blog-avatar
+ */
+/* TODO: Find out how to make it return URL instead of a PNG file
+export async function getBlogAvatar(
+	token: string,
+	blogIdentifier: string,
+	size: 16 | 24 | 30 | 40 | 48 | 64 | 96 | 128 | 512 = 64
+): Promise<string> {
+	return (await accessTumblrAPI(token, `blog/${blogIdentifier}/avatar/${size}`)).response
+		.avatar_url;
+}
+*/
+
+/**
  * Get the likes of a blog
  * @param token OAuth2 token from Tumblr
  * @param blogIdentifier Identifier of the blog to get the info from
@@ -108,7 +127,7 @@ export async function getBlogFollowedBy(
 ): Promise<boolean> {
 	return (
 		await accessTumblrAPI(token, `blog/${blogIdentifier}/followed_by`, {
-			followed_by: followedBy,
+			query: followedBy,
 		})
 	).response.followed_by;
 }

@@ -1,11 +1,14 @@
 import {
 	blockBlog,
+	followBlog,
 	getBlogBlocks,
+	getBlogFollowedBy,
 	getBlogFollowers,
 	getBlogFollowing,
 	getBlogInfo,
 	TumblrFollowerBlog,
 	unblockBlog,
+	unfollowBlog,
 } from "../src/index";
 
 const token = process.env.TUMBLR_TOKEN;
@@ -39,9 +42,8 @@ it("gets blog blocks", async () => {
 it("unblocks a blog", async () => {
 	const blocked = await unblockBlog(token, "typeble-bot", "marksuckerbird");
 	expect(blocked).toBe(true);
-});
 
-it("actually unblocks a blog", async () => {
+	// Ensure it's actually unblocked
 	const blogBlocks = await getBlogBlocks(token, "typeble-bot");
 	expect(blogBlocks).toBeDefined();
 	expect(
@@ -59,22 +61,38 @@ it("gets blog following", async () => {
 	expect(blogFollowing).toBeDefined();
 });
 
+/* See todo in BlogInfo.ts
+it("gets blog avatar", async () => {
+	const blogAvatar = await getBlogAvatar(token, "typeble-bot", 128);
+	expect(blogAvatar).toBe(
+		"https://assets.tumblr.com/images/default_avatar/pyramid_closed_128.png"
+	);
+});
+*/
+
 it("follows a blog", async () => {
-	const followed = await followBlog(token, "marksuckerbird");
-	expect(followed).toBe(true);
+	const followed = await followBlog(token, "https://tumblr.suckerberg.gay/");
+	expect(followed.url).toBe("https://tumblr.suckerberg.gay/");
+
+	// Ensure it's actually followed
+	const blogsFollowed = await getBlogFollowing(token, "typeble-bot");
+	expect(
+		blogsFollowed.find((blog: TumblrFollowerBlog) => blog.name === "marksuckerbird")
+	).toBeDefined();
 });
 
 it("gets blog followed by", async () => {
-	const blogFollowedBy = await getBlogFollowedBy(token, "marksuckerbird", "typeble-bot");
-	expect(blogFollowedBy).toBe(true);
+	const blogFollowedBy = await getBlogFollowedBy(token, "typeble-bot", "marksuckerbird");
+	expect(blogFollowedBy).toBe(false);
 });
 
 it("unfollows a blog", async () => {
-	const followed = await unfollowBlog(token, "marksuckerbird");
+	const followed = await unfollowBlog(token, "https://tumblr.suckerberg.gay/");
 	expect(followed).toBe(true);
-});
 
-it("actually unfollows a blog", async () => {
-	const blogFollowedBy = await getBlogFollowedBy(token, "marksuckerbird", "typeble-bot");
-	expect(blogFollowedBy).toBe(false);
+	// Ensure it's actually unfollowed
+	const blogsFollowed = await getBlogFollowing(token, "typeble-bot");
+	expect(
+		blogsFollowed.find((blog: TumblrFollowerBlog) => blog.name === "marksuckerbird")
+	).toBeUndefined();
 });
