@@ -93,3 +93,22 @@ export async function getBlogFollowing(
 		})
 	).response.blogs;
 }
+
+/**
+ * Get the likes of a blog
+ * @param token OAuth2 token from Tumblr
+ * @param blogIdentifier Identifier of the blog to get the info from
+ * @param followedBy Username of the blog to check if it follows the given blog
+ * @returns Whether the first blog follows the second blog
+ */
+export async function getBlogFollowedBy(
+	token: string,
+	blogIdentifier: string,
+	followedBy: string
+): Promise<boolean> {
+	return (
+		await accessTumblrAPI(token, `blog/${blogIdentifier}/followed_by`, {
+			followed_by: followedBy,
+		})
+	).response.followed_by;
+}

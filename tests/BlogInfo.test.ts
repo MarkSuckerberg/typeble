@@ -58,3 +58,23 @@ it("gets blog following", async () => {
 	const blogFollowing = await getBlogFollowing(token, "typeble-bot");
 	expect(blogFollowing).toBeDefined();
 });
+
+it("follows a blog", async () => {
+	const followed = await followBlog(token, "marksuckerbird");
+	expect(followed).toBe(true);
+});
+
+it("gets blog followed by", async () => {
+	const blogFollowedBy = await getBlogFollowedBy(token, "marksuckerbird", "typeble-bot");
+	expect(blogFollowedBy).toBe(true);
+});
+
+it("unfollows a blog", async () => {
+	const followed = await unfollowBlog(token, "marksuckerbird");
+	expect(followed).toBe(true);
+});
+
+it("actually unfollows a blog", async () => {
+	const blogFollowedBy = await getBlogFollowedBy(token, "marksuckerbird", "typeble-bot");
+	expect(blogFollowedBy).toBe(false);
+});
