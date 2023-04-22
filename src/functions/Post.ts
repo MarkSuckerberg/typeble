@@ -79,3 +79,71 @@ export async function FetchPost(
 		)
 	).response;
 }
+
+/**
+ *
+ * @param token OAuth2 token from Tumblr
+ * @param blogIdentifier Identifier of the blog to fetch posts from
+ * @param id ID of the post to fetch
+ * @param tag Tag(s) to filter posts by (limit 4)
+ * @param limit Maximum number of posts to fetch
+ * @param offset Number of posts to skip
+ * @param reblogInfo Whether to include reblog info
+ * @param notesInfo Whether to include notes info
+ * @param filter Filter to apply to the posts (raw, text, none)
+ * @param before Unix timestamp to fetch posts before
+ * @param npf Whether to use the new post format
+ * @returns Array of posts
+ * @link https://www.tumblr.com/docs/en/api/v2#posts--retrieve-published-posts
+ */
+export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
+	token: string,
+	blogIdentifier: string,
+	id?: number,
+	tag?: string | string[],
+	limit = 20,
+	offset = 0,
+	reblogInfo?: boolean,
+	notesInfo?: boolean,
+	filter: "raw" | "text" | "none" = "none",
+	before?: number,
+	npf?: boolean
+) {
+	// Tumblr API only allows a maximum of 20 posts per request
+	if (limit > 20) limit = 20;
+
+	interface Arguments {
+		id?: string;
+		tag?: string;
+		limit?: string;
+		offset?: string;
+		reblog_info?: string;
+		notes_info?: string;
+		filter?: string;
+		before?: string;
+		npf?: string;
+	}
+
+	const args: Arguments = {
+		id: id?.toString(),
+		tag: typeof tag === "string" ? tag : tag?.join(","),
+		limit: limit.toString(),
+		offset: offset.toString(),
+		reblog_info: reblogInfo?.toString(),
+		notes_info: notesInfo?.toString(),
+		filter: filter ?? "none",
+		before: before?.toString(),
+		npf: npf?.toString(),
+	};
+
+	return (
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/posts`,
+			//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
+			JSON.parse(JSON.stringify(args)),
+			"GET",
+			"https://www.tumblr.com/api/v2/" // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask Tumblr why.
+		)
+	).response.posts as PostType[];
+}

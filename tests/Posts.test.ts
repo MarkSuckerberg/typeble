@@ -3,6 +3,7 @@ import {
 	DeletePost,
 	EditPost,
 	FetchPost,
+	FetchPosts,
 	NewPostDetails,
 	TumblrBlocksPost,
 } from "../src";
@@ -48,6 +49,12 @@ it("should fetch the post", async () => {
 		{ type: "text", text: "This is a test post. It has been edited!" },
 	]);
 	expect(post.tags).toEqual(["test", "typeble", "edit"]);
+	expect(post).toBeDefined();
+});
+
+it("should fetch the blog's posts", async () => {
+	const posts = await FetchPosts(token, "typeble-bot");
+	const post = posts.find(post => post.id_string === postID);
 	expect(post).toBeDefined();
 });
 
