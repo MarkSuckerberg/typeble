@@ -1,0 +1,21 @@
+name: 'Refresh token'
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refresh Tumblr access token
+        uses: MarkSuckerberg/tumblr-auth-action@v1.0.2
+        with:
+          secrets-token: ${{ secrets.SECRETS_ACCESS_TOKEN }}
+          tumblr-refresh-token: ${{ secrets.TUMBLR_REFRESH_TOKEN }}
+          tumblr-client-id: ${{ secrets.TUMBLR_CLIENT_ID }}
+          tumblr-client-secret: ${{ secrets.TUMBLR_CLIENT_SECRET }}
+          token-name: TUMBLR_REFRESH_TOKEN
+          user-agent: "Typeble-Auth/1.1.0"
