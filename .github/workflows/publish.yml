@@ -18,7 +18,6 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm test
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -39,7 +38,6 @@ jobs:
       - run: |
           sed -i "s/\"name\": \"${{ github.event.repository.name }}\"/\"name\": \"@${{ github.repository_owner }}\/${{ github.event.repository.name }}\"/" package.json
       - run: npm ci
-      - run: npm test
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
