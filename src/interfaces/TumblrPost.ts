@@ -46,6 +46,7 @@ export interface TumblrPostBase {
 	can_send_in_message: boolean;
 	note_count: number;
 	should_open_in_legacy: boolean;
+	notes?: TumblrNote[];
 }
 
 export interface TumblrLegacyQueuedPost extends TumblrPostBase {
@@ -148,4 +149,18 @@ interface TumblrDialogue {
 	label: string;
 	name: string;
 	phrase: string;
+}
+
+interface TumblrNote {
+	type: "like" | "reblog";
+	timestamp: number;
+	blog_name: string;
+	blog_uuid: string;
+	blog_url: string;
+	followed: boolean;
+	avatar_shape: string;
+	avatar_url: {
+		"64": string;
+		"128": string;
+	};
 }

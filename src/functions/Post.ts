@@ -61,7 +61,7 @@ export async function DeletePost(token: string, blogIdentifier: string, postId: 
 	);
 }
 
-export async function FetchPost(
+export async function FetchPostNeue(
 	token: string,
 	blogIdentifier: string,
 	postId: string,
@@ -85,6 +85,48 @@ export async function FetchPost(
  * @param token OAuth2 token from Tumblr
  * @param blogIdentifier Identifier of the blog to fetch posts from
  * @param id ID of the post to fetch
+ * @param reblogInfo Whether to include reblog info
+ * @param notesInfo Whether to include notes info
+ * @param filter Filter to apply to the posts (raw, text, none)
+ * @param npf Whether to use the new post format
+ * @param basicAuth Whether to treat the token argument as an OAuth2 token or a basic consumer ID
+ * @returns Specified post
+ * @link https://www.tumblr.com/docs/en/api/v2#posts--retrieve-published-posts
+ */
+export async function FetchPost<PostType extends TumblrPost = TumblrPost>(
+	token: string,
+	blogIdentifier: string,
+	id: number | string,
+	reblogInfo?: boolean,
+	notesInfo?: boolean,
+	filter: "raw" | "text" | "none" = "none",
+	npf = true,
+	basicAuth = false
+) {
+	return (
+		await FetchPosts<PostType>(
+			token,
+			blogIdentifier,
+			id,
+			undefined,
+			1,
+			0,
+			reblogInfo,
+			notesInfo,
+			filter,
+			undefined,
+			npf,
+			undefined,
+			basicAuth
+		)
+	)[0];
+}
+
+/**
+ *
+ * @param token OAuth2 token from Tumblr
+ * @param blogIdentifier Identifier of the blog to fetch posts from
+ * @param id ID of the post to fetch
  * @param tag Tag(s) to filter posts by (limit 4)
  * @param limit Maximum number of posts to fetch
  * @param offset Number of posts to skip
@@ -93,13 +135,15 @@ export async function FetchPost(
  * @param filter Filter to apply to the posts (raw, text, none)
  * @param before Unix timestamp to fetch posts before
  * @param npf Whether to use the new post format
+ * @param type The type of posts to return, as legacy categories
+ * @param basicAuth Whether to treat the token argument as an OAuth2 token or a basic consumer ID
  * @returns Array of posts
  * @link https://www.tumblr.com/docs/en/api/v2#posts--retrieve-published-posts
  */
 export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 	token: string,
 	blogIdentifier: string,
-	id?: number,
+	id?: number | string,
 	tag?: string | string[],
 	limit = 20,
 	offset = 0,
@@ -107,7 +151,9 @@ export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 	notesInfo?: boolean,
 	filter: "raw" | "text" | "none" = "none",
 	before?: number,
-	npf?: boolean
+	npf = true,
+	type?: "text" | "quote" | "link" | "answer" | "video" | "audio" | "photo" | "chat",
+	basicAuth = false
 ) {
 	// Tumblr API only allows a maximum of 20 posts per request
 	if (limit > 20) limit = 20;
@@ -122,6 +168,7 @@ export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 		filter?: string;
 		before?: string;
 		npf?: string;
+		type?: string;
 	}
 
 	const args: Arguments = {
@@ -134,6 +181,7 @@ export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 		filter: filter ?? "none",
 		before: before?.toString(),
 		npf: npf?.toString(),
+		type: type,
 	};
 
 	return (
@@ -143,7 +191,8 @@ export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 			//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
 			JSON.parse(JSON.stringify(args)),
 			"GET",
-			"https://www.tumblr.com/api/v2/" // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask Tumblr why.
+			"https://www.tumblr.com/api/v2/", // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask Tumblr why.
+			basicAuth
 		)
 	).response.posts as PostType[];
 }

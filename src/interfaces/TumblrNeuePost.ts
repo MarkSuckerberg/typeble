@@ -84,6 +84,8 @@ export interface TumblrNeueLinkBlock {
 export type TumblrNeueAudioBlock = TumblrNeueAudioBlockURL | TumblrNeueAudioBlockMedia;
 
 export interface TumblrNeueAudioBlockBase {
+	url?: string;
+	media?: TumblrMediaObject;
 	type: "audio";
 	provider?: string;
 	title?: string;
@@ -98,9 +100,11 @@ export interface TumblrNeueAudioBlockBase {
 
 export interface TumblrNeueAudioBlockURL extends TumblrNeueAudioBlockBase {
 	url: string;
+	media: never;
 }
 
 export interface TumblrNeueAudioBlockMedia extends TumblrNeueAudioBlockBase {
+	url: never;
 	media: TumblrMediaObject;
 }
 
@@ -108,6 +112,8 @@ export interface TumblrNeueAudioBlockMedia extends TumblrNeueAudioBlockBase {
 export type TumblrNeueVideoBlock = TumblrNeueVideoBlockURL | TumblrNeueVideoBlockMedia;
 
 export interface TumblrNeueVideoBlockBase {
+	url?: string;
+	media?: TumblrMediaObject;
 	type: "video";
 	provider?: string;
 	embed_html?: string;
@@ -122,9 +128,11 @@ export interface TumblrNeueVideoBlockBase {
 // Video Block
 export interface TumblrNeueVideoBlockURL extends TumblrNeueVideoBlockBase {
 	url: string;
+	media: never;
 }
 
 export interface TumblrNeueVideoBlockMedia extends TumblrNeueVideoBlockBase {
+	url: never;
 	media: TumblrMediaObject;
 }
 
