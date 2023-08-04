@@ -51,10 +51,10 @@ Truth be told, CI (tests) will likely only run on master as there is a chance of
 
 ## Roadmap
 
-- [Cover all (documented) endpoints](https://github.com/MarkSuckerberg/typeble/issues/3)
-- Add support for OAuth1/plain access token authentication where possible
-- Release on NPM
-- Starter template using this project
+- [ ] [Cover all (documented) endpoints](https://github.com/MarkSuckerberg/typeble/issues/3)
+- [x] Add support for OAuth1/plain access token authentication where possible
+- [x] Release on NPM
+- [ ] Starter template using this project
 
 ## Other Resources
 
