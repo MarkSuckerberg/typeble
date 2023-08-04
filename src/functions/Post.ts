@@ -1,4 +1,4 @@
-import { NewPostDetails, TumblrPost } from "../interfaces";
+import { NewPostDetails, TumblrNoteResponse, TumblrPost } from "../interfaces";
 import { accessTumblrAPI } from "./AccessTumblrApi";
 
 /**
@@ -195,4 +195,20 @@ export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 			basicAuth
 		)
 	).response.posts as PostType[];
+}
+
+export async function GetNotes(
+	token: string,
+	blogIdentifier: string,
+	id: number | string,
+	beforeTimestamp = Number.MAX_VALUE,
+	mode: "all" | "likes" | "conversation" | "rollup" | "reblogs_with_tags" = "all"
+) {
+	return (
+		await accessTumblrAPI(token, `blog/${blogIdentifier}/notes`, {
+			id: id.toString(),
+			mode,
+			before_timestamp: beforeTimestamp.toString(),
+		})
+	).response as TumblrNoteResponse;
 }

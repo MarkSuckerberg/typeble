@@ -40,7 +40,7 @@ export async function accessTumblrAPI(
 		throw new Error(
 			`${response.meta.status}: ${response.meta.msg} - ${JSON.stringify(
 				response.errors
-			)} (Query URL: ${url})`
+			)} (Query URL: ${method} ${url} ${method === "GET" ? "" : JSON.stringify(params)})`
 		);
 	}
 

@@ -1,3 +1,4 @@
+import { TumblrLink } from "./TumblrAPIResponse";
 import { TumblrFollowerBlog } from "./TumblrBlog";
 import { TumblrBlocksPost } from "./TumblrNeuePost";
 
@@ -151,6 +152,15 @@ interface TumblrDialogue {
 	phrase: string;
 }
 
+export interface TumblrNoteResponse {
+	notes: TumblrNote[];
+	rollup_notes?: TumblrNote[];
+	total_notes: number;
+	total_likes?: number;
+	total_reblogs?: number;
+	_links: TumblrLink;
+}
+
 interface TumblrNote {
 	type: "like" | "reblog";
 	timestamp: number;
@@ -163,4 +173,6 @@ interface TumblrNote {
 		"64": string;
 		"128": string;
 	};
+	tags?: string[];
+	reblog_parent_blog_name?: string;
 }
