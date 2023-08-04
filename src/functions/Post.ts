@@ -202,13 +202,21 @@ export async function GetNotes(
 	blogIdentifier: string,
 	id: number | string,
 	beforeTimestamp = Number.MAX_VALUE,
-	mode: "all" | "likes" | "conversation" | "rollup" | "reblogs_with_tags" = "all"
+	mode: "all" | "likes" | "conversation" | "rollup" | "reblogs_with_tags" = "all",
+	basicAuth = false
 ) {
 	return (
-		await accessTumblrAPI(token, `blog/${blogIdentifier}/notes`, {
-			id: id.toString(),
-			mode,
-			before_timestamp: beforeTimestamp.toString(),
-		})
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/notes`,
+			{
+				id: id.toString(),
+				mode,
+				before_timestamp: beforeTimestamp.toString(),
+			},
+			"GET",
+			undefined,
+			basicAuth
+		)
 	).response as TumblrNoteResponse;
 }
