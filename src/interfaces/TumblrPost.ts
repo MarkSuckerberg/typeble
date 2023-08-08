@@ -48,6 +48,7 @@ export interface TumblrPostBase {
 	note_count: number;
 	should_open_in_legacy: boolean;
 	notes?: TumblrNote[];
+	broken_blog_name?: string;
 }
 
 export interface TumblrLegacyQueuedPost extends TumblrPostBase {
@@ -175,4 +176,11 @@ interface TumblrNote {
 	};
 	tags?: string[];
 	reblog_parent_blog_name?: string;
+}
+
+export interface TumblrBrokenBlogPost extends TumblrPostBase {
+	blog: never;
+	blog_name: never;
+	post_url: never;
+	broken_blog_name: string;
 }

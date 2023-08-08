@@ -1,11 +1,11 @@
 import { TumblrAttributionObject } from "./TumblrAttribution";
 import { TumblrGifMediaObject, TumblrMediaObject } from "./TumblrMediaObject";
 import { TumblrNeueLayoutBlock } from "./TumblrNeueLayout";
-import { TumblrPost, TumblrPostBase } from "./TumblrPost";
+import { TumblrBrokenBlogPost, TumblrPost, TumblrPostBase } from "./TumblrPost";
 
 export interface TumblrBlocksPost extends TumblrPostBase {
 	type: "blocks";
-	trail: TumblrPost[];
+	trail: (TumblrPost | TumblrBrokenBlogPost)[];
 	content: TumblrNeueContentBlock[];
 	layout: TumblrNeueLayoutBlock[];
 	is_blocks_post_format: true;
