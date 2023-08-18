@@ -15,12 +15,10 @@ It was built using the API reference documents, and like any other project built
 
 ## How to use
 
-Not available on any package managers yet, nor will it work from the repo as the compiled javascript files aren't pushed. Sorry! But if it *did* work, it'd go something like this:
-
-1. Install the package into your project with NPM
-2. Import the functions you need for your project as you would any library, full documentation [here](https://marksuckerberg.github.io/typeble/)
+1. Install the package into your project with NPM with the command `npm install typeble`
+2. Import the functions you need for your project as you would any library, documentation [here](https://marksuckerberg.github.io/typeble/)
 3. Obtain an OAuth 2 token for tumblr using [my tumblr authentication library](https://github.com/MarkSuckerberg/tumblr-auth) or some other method
-4. DON'T SHARE THE TOKEN WITH ANYONE! It will expire (unless it has the offline_access scope) but someone could do damage to your account if they get access to the token.
+4. DON'T SHARE THE TOKEN WITH ANYONE! It will expire (unless it has the offline_access scope) but someone could do damage to your account if they get access to the token
 5. Pass the token as the first argument to any of the functions
 
 ## Contributing
