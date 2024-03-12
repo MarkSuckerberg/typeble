@@ -35,17 +35,13 @@ export async function getBlogInfo(
 	blogIdentifier: string,
 	responseFields?: BlogInfoResponseFields //TODO: Find a way to make this dynamically return the correct type
 ): Promise<{ [field: string]: string; thing: string }> {
-	const response = await accessTumblrAPI(
-		token,
-		`blog/${blogIdentifier}/info`,
-		responseFields ? { fields: responseFields.join(",") } : undefined
-	);
-
-	if (response.meta.status !== 200) {
-		throw new Error(`Failed to get blog info: ${response.meta.msg}`);
-	}
-
-	return response.response.blog;
+	return (
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/info`,
+			responseFields ? { fields: responseFields.join(",") } : undefined
+		)
+	).response.blog;
 }
 
 /**
@@ -64,20 +60,13 @@ export async function getBlogFollowers(
 	offset = 0
 ): Promise<TumblrFollowingBlog[]> {
 	// Tumblr API only allows a maximum of 20 blogs per request
-	if (limit > 20) {
-		limit = 20;
-	}
-
-	const response = await accessTumblrAPI(token, `blog/${blogIdentifier}/followers`, {
-		limit: limit.toString(),
-		offset: offset.toString(),
-	});
-
-	if (response.meta.status !== 200) {
-		throw new Error(`Failed to get blog followers: ${response.meta.msg}`);
-	}
-
-	return response.response.users;
+	if (limit > 20) limit = 20;
+	return (
+		await accessTumblrAPI(token, `blog/${blogIdentifier}/followers`, {
+			limit: limit.toString(),
+			offset: offset.toString(),
+		})
+	).response.users;
 }
 
 /**
@@ -97,17 +86,12 @@ export async function getBlogFollowing(
 ): Promise<TumblrFollowerBlog[]> {
 	// Tumblr API only allows a maximum of 20 blogs per request
 	if (limit > 20) limit = 20;
-
-	const response = await accessTumblrAPI(token, `blog/${blogIdentifier}/following`, {
-		limit: limit.toString(),
-		offset: offset.toString(),
-	});
-
-	if (response.meta.status !== 200) {
-		throw new Error(`Failed to get following blogs: ${response.meta.msg}`);
-	}
-
-	return response.response.blogs;
+	return (
+		await accessTumblrAPI(token, `blog/${blogIdentifier}/following`, {
+			limit: limit.toString(),
+			offset: offset.toString(),
+		})
+	).response.blogs;
 }
 
 /**
@@ -141,13 +125,9 @@ export async function getBlogFollowedBy(
 	blogIdentifier: string,
 	followedBy: string
 ): Promise<boolean> {
-	const response = await accessTumblrAPI(token, `blog/${blogIdentifier}/followed_by`, {
-		query: followedBy,
-	});
-
-	if (response.meta.status !== 200) {
-		throw new Error(`Failed to get blog followed by: ${response.meta.msg}`);
-	}
-
-	return response.response.followed_by;
+	return (
+		await accessTumblrAPI(token, `blog/${blogIdentifier}/followed_by`, {
+			query: followedBy,
+		})
+	).response.followed_by;
 }

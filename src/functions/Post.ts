@@ -13,19 +13,15 @@ export async function CreatePost(
 	blogIdentifier: string,
 	postDetails: NewPostDetails
 ): Promise<string | undefined> {
-	const response = await accessTumblrAPI(
-		token,
-		`blog/${blogIdentifier}/posts`,
-		//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
-		JSON.parse(JSON.stringify(postDetails)),
-		"POST"
-	);
-
-	if (response.meta.status !== 201) {
-		throw new Error(`Failed to create post: ${response.meta.msg}`);
-	}
-
-	return response.response.id;
+	return (
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/posts`,
+			//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
+			JSON.parse(JSON.stringify(postDetails)),
+			"POST"
+		)
+	).response.id;
 }
 
 /**
@@ -41,19 +37,15 @@ export async function EditPost(
 	postId: string,
 	postDetails: NewPostDetails
 ): Promise<string | undefined> {
-	const response = await accessTumblrAPI(
-		token,
-		`blog/${blogIdentifier}/posts/${postId}`,
-		//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
-		JSON.parse(JSON.stringify(postDetails)),
-		"PUT"
-	);
-
-	if (response.meta.status !== 200) {
-		throw new Error(`Failed to edit post: ${response.meta.msg}`);
-	}
-
-	return response.response.id;
+	return (
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/posts/${postId}`,
+			//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
+			JSON.parse(JSON.stringify(postDetails)),
+			"PUT"
+		)
+	).response.id;
 }
 
 /**
@@ -75,21 +67,17 @@ export async function FetchPostNeue(
 	postId: string,
 	postFormat: "npf" | "legacy" = "npf"
 ): Promise<TumblrPost> {
-	const response = await accessTumblrAPI(
-		token,
-		`blog/${blogIdentifier}/posts/${postId}`,
-		{
-			post_format: postFormat,
-		},
-		"GET",
-		"https://www.tumblr.com/api/v2/" // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask Tumblr why.
-	);
-
-	if (response.meta.status !== 200) {
-		throw new Error(`Failed to fetch post: ${response.meta.msg}`);
-	}
-
-	return response.response;
+	return (
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/posts/${postId}`,
+			{
+				post_format: postFormat,
+			},
+			"GET",
+			"https://www.tumblr.com/api/v2/" // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask Tumblr why.
+		)
+	).response;
 }
 
 /**
@@ -196,21 +184,17 @@ export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 		type: type,
 	};
 
-	const response = await accessTumblrAPI(
-		token,
-		`blog/${blogIdentifier}/posts`,
-		//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
-		JSON.parse(JSON.stringify(args)),
-		"GET",
-		"https://www.tumblr.com/api/v2/", // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask Tumblr why.
-		basicAuth
-	);
-
-	if (response.meta.status !== 200) {
-		throw new Error(`Failed to fetch posts: ${response.meta.msg}`);
-	}
-
-	return response.response.posts as PostType[];
+	return (
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/posts`,
+			//TODO: This is a hacky way to do this. Find a better way to make this into a string array.
+			JSON.parse(JSON.stringify(args)),
+			"GET",
+			"https://www.tumblr.com/api/v2/", // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask Tumblr why.
+			basicAuth
+		)
+	).response.posts as PostType[];
 }
 
 export async function GetNotes(
@@ -221,22 +205,18 @@ export async function GetNotes(
 	mode: "all" | "likes" | "conversation" | "rollup" | "reblogs_with_tags" = "all",
 	basicAuth = false
 ) {
-	const response = await accessTumblrAPI(
-		token,
-		`blog/${blogIdentifier}/notes`,
-		{
-			id: id.toString(),
-			mode,
-			before_timestamp: beforeTimestamp.toString(),
-		},
-		"GET",
-		undefined,
-		basicAuth
-	);
-
-	if (response.meta.status !== 200) {
-		throw new Error(`Failed to fetch notes: ${response.meta.msg}`);
-	}
-
-	return response.response as TumblrNoteResponse;
+	return (
+		await accessTumblrAPI(
+			token,
+			`blog/${blogIdentifier}/notes`,
+			{
+				id: id.toString(),
+				mode,
+				before_timestamp: beforeTimestamp.toString(),
+			},
+			"GET",
+			undefined,
+			basicAuth
+		)
+	).response as TumblrNoteResponse;
 }
