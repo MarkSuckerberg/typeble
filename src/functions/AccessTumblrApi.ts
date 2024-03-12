@@ -1,3 +1,4 @@
+import { TumblrAPIError } from "../classes";
 import { TumblrAPIResponse } from "../interfaces";
 
 /**
@@ -34,6 +35,10 @@ export async function accessTumblrAPI(
 	});
 
 	const response: TumblrAPIResponse = await request.json();
+
+	if (!request.ok) {
+		throw new TumblrAPIError(response, url);
+	}
 
 	return response;
 }
