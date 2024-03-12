@@ -35,14 +35,5 @@ export async function accessTumblrAPI(
 
 	const response: TumblrAPIResponse = await request.json();
 
-	//TODO: Don't make this throw an error, instead return the response and let the caller handle it
-	if (!request.ok) {
-		throw new Error(
-			`${response.meta.status}: ${response.meta.msg} - ${JSON.stringify(
-				response.errors
-			)} (Query URL: ${method} ${url} ${method === "GET" ? "" : JSON.stringify(params)})`
-		);
-	}
-
 	return response;
 }

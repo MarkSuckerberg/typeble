@@ -17,13 +17,20 @@ export async function getBlogBlocks(
 	offset = 0
 ): Promise<TumblrFollowerBlog[]> {
 	// Tumblr API only allows a maximum of 20 blogs per request
-	if (limit > 20) limit = 20;
-	return await (
-		await accessTumblrAPI(token, `blog/${blogIdentifier}/blocks`, {
-			limit: limit.toString(),
-			offset: offset.toString(),
-		})
-	).response.blocked_tumblelogs;
+	if (limit > 20) {
+		limit = 20;
+	}
+
+	const response = await accessTumblrAPI(token, `blog/${blogIdentifier}/blocks`, {
+		limit: limit.toString(),
+		offset: offset.toString(),
+	});
+
+	if (response.meta.status !== 200) {
+		throw new Error(`Failed to get blocked blogs: ${response.meta.msg}`);
+	}
+
+	return response.response.blocked_tumblelogs;
 }
 
 /**

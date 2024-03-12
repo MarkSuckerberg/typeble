@@ -9,16 +9,20 @@ import { accessTumblrAPI } from "./AccessTumblrApi";
  * @link https://www.tumblr.com/docs/en/api/v2#userfollow--follow-a-blog
  */
 export async function followBlog(token: string, url: string): Promise<TumblrFollowingBlog> {
-	return (
-		await accessTumblrAPI(
-			token,
-			`user/follow`,
-			{
-				url: url,
-			},
-			"POST"
-		)
-	).response.blog;
+	const response = await accessTumblrAPI(
+		token,
+		`user/follow`,
+		{
+			url: url,
+		},
+		"POST"
+	);
+
+	if (response.meta.status !== 200) {
+		throw new Error(`Failed to follow blog: ${response.meta.msg}`);
+	}
+
+	return response.response.blog;
 }
 
 /**
