@@ -39,6 +39,19 @@ export async function accessTumblrAPI(
 	const request = (await cache?.match(requestInfo)) || (await fetch(requestInfo));
 	await cache?.put(requestInfo, request);
 
+	if (request.headers.get("Content-Type") != "application/json") {
+		throw new TumblrAPIError(
+			{
+				meta: {
+					status: request.status,
+					msg: request.statusText,
+				},
+				response: await request.text(),
+			},
+			url
+		);
+	}
+
 	const response: TumblrAPIResponse = await request.json();
 
 	if (!request.ok) {
