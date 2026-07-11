@@ -19,20 +19,25 @@ export async function accessTumblrAPI(
 	params?: Record<string, string>,
 	method: "GET" | "POST" | "DELETE" | "PUT" = "GET",
 	apiURL = "https://api.tumblr.com/v2/",
-	basicAuth = false
+	basicAuth = false,
+	cache?: Cache
 ): Promise<TumblrAPIResponse> {
 	const finalParams = new URLSearchParams(basicAuth ? { api_key: token, ...params } : params);
 	const url = method === "GET" ? `${apiURL}${endpoint}?${finalParams}` : `${apiURL}${endpoint}`;
-	const request = await fetch(url, {
+
+	const requestInfo = new Request(url, {
 		method: method,
 		headers: {
 			"Content-Type": "application/json",
 			"Accept": "application/json",
-			"User-Agent": "Typeble/1.0.0",
+			"User-Agent": "Typeble/1.1.0",
 			...(!basicAuth && { Authorization: `Bearer ${token}` }),
 		},
 		body: method !== "GET" ? JSON.stringify(params) : null,
 	});
+
+	const request = (await cache?.match(requestInfo)) || (await fetch(requestInfo));
+	await cache?.put(requestInfo, request);
 
 	const response: TumblrAPIResponse = await request.json();
 

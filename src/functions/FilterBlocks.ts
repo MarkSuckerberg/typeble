@@ -1,28 +1,21 @@
-import {
-	TumblrBlocksPost,
-	TumblrNeueImageBlock,
-	TumblrNeueLinkBlock,
-	TumblrNeuePaywallBlock,
-	TumblrNeueTextBlock,
-	TumblrNeueVideoBlock,
-} from "../interfaces";
+import { TumblrBlocksPost, TumblrNeueVideoBlock } from "../interfaces";
 
-export async function GetImageBlocks(this: TumblrBlocksPost) {
-	return this.content.filter(block => block.type === "image") as TumblrNeueImageBlock[];
+export function GetImageBlocks(this: TumblrBlocksPost) {
+	return this.content.filter(block => block.type === "image");
 }
 
-export async function GetLinkBlocks(this: TumblrBlocksPost) {
-	return this.content.filter(block => block.type === "link") as TumblrNeueLinkBlock[];
+export function GetLinkBlocks(this: TumblrBlocksPost) {
+	return this.content.filter(block => block.type === "link");
 }
 
-export async function GetPaywallBlocks(this: TumblrBlocksPost) {
-	return this.content.filter(block => block.type === "paywall") as TumblrNeuePaywallBlock[];
+export function GetPaywallBlocks(this: TumblrBlocksPost) {
+	return this.content.filter(block => block.type === "paywall");
 }
 
-export async function GetTextBlocks(this: TumblrBlocksPost) {
-	return this.content.filter(block => block.type === "text") as TumblrNeueTextBlock[];
+export function GetTextBlocks(this: TumblrBlocksPost) {
+	return this.content.filter(block => block.type === "text");
 }
 
-export async function GetVideoBlocks(this: TumblrBlocksPost) {
+export function GetVideoBlocks(this: TumblrBlocksPost) {
 	return this.content.filter(block => block.type === "video") as TumblrNeueVideoBlock[];
 }
