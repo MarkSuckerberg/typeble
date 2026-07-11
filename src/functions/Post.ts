@@ -101,7 +101,8 @@ export async function FetchPost<PostType extends TumblrPost = TumblrPost>(
 	notesInfo?: boolean,
 	filter: "raw" | "text" | "none" = "none",
 	npf = true,
-	basicAuth = false
+	basicAuth = false,
+	cache?: Cache
 ) {
 	return (
 		await FetchPosts<PostType>(
@@ -117,7 +118,8 @@ export async function FetchPost<PostType extends TumblrPost = TumblrPost>(
 			undefined,
 			npf,
 			undefined,
-			basicAuth
+			basicAuth,
+			cache
 		)
 	)[0];
 }
@@ -153,7 +155,8 @@ export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 	before?: number,
 	npf = true,
 	type?: "text" | "quote" | "link" | "answer" | "video" | "audio" | "photo" | "chat",
-	basicAuth = false
+	basicAuth = false,
+	cache?: Cache
 ) {
 	// Tumblr API only allows a maximum of 20 posts per request
 	if (limit > 20) limit = 20;
@@ -192,7 +195,8 @@ export async function FetchPosts<PostType extends TumblrPost = TumblrPost>(
 			JSON.parse(JSON.stringify(args)),
 			"GET",
 			"https://www.tumblr.com/api/v2/", // Yes, getting posts needs to be done on a different API endpoint for some reason. Ask Tumblr why.
-			basicAuth
+			basicAuth,
+			cache
 		)
 	).response.posts as PostType[];
 }

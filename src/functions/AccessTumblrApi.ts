@@ -30,14 +30,14 @@ export async function accessTumblrAPI(
 		headers: {
 			"Content-Type": "application/json",
 			"Accept": "application/json",
-			"User-Agent": "Typeble/1.1.0",
+			"User-Agent": "Typeble/1.1.1",
 			...(!basicAuth && { Authorization: `Bearer ${token}` }),
 		},
 		body: method !== "GET" ? JSON.stringify(params) : null,
 	});
 
 	const request = (await cache?.match(requestInfo)) || (await fetch(requestInfo));
-	await cache?.put(requestInfo, request);
+	await cache?.put(requestInfo, request.clone());
 
 	if (request.headers.get("Content-Type") != "application/json") {
 		throw new TumblrAPIError(
