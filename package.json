@@ -34,7 +34,6 @@
 		"eslint-plugin-simple-import-sort": "^13.0.0",
 		"globals": "^17.7.0",
 		"prettier": "^3.9.5",
-		"ts-jest": "^29.4.11",
 		"ts-node": "^10.9.2",
 		"typeble-auth": "^1.1.3",
 		"typedoc": "^0.28.20",
