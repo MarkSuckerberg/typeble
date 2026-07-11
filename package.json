@@ -24,8 +24,6 @@
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"@eslint/js": "^10.0.1",
-		"@types/jest": "^30.0.0",
 		"@types/node": "^26.1.1",
 		"dotenv": "^17.4.2",
 		"eslint": "^10.6.0",
@@ -40,7 +38,7 @@
 		"typedoc-plugin-missing-exports": "^4.1.4",
 		"typescript": "^5.5.2",
 		"typescript-eslint": "^8.63.0",
-		"vitest": "^4.1.10"
+		"vitest": "~3.2.0"
 	},
 	"homepage": "https://github.com/MarkSuckerberg/typeble",
 	"bugs": {
@@ -51,5 +49,8 @@
 		"README.md",
 		"LICENSE",
 		"package.json"
-	]
+	],
+	"dependencies": {
+		"@eslint/js": "^10.0.1"
+	}
 }
