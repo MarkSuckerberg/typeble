@@ -17,8 +17,8 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: pnpm ci
-      - run: pnpm publish
+      - run: npm ci
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -37,7 +37,7 @@ jobs:
       # Rename package name to include scope for GitHub Packages
       - run: |
           sed -i "s/\"name\": \"${{ github.event.repository.name }}\"/\"name\": \"@${{ github.repository_owner }}\/${{ github.event.repository.name }}\"/" package.json
-      - run: pnpm run ci
-      - run: pnpm run publish
+      - run: npm ci
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
